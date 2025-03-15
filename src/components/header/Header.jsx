@@ -2,9 +2,16 @@ import logo from "/images/logogrocery.png";
 import "./header.css";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
+import { useState } from "react";
 
 
 const Header = () => {
+
+  const [isShow,setIsShow]=useState(false)
+
+  const handleShowHandler=()=>setIsShow(prev=>!prev)
+
+
   return (
     <header className="fixed shadow-md w-full h-20 px-2 header min-w-[800px]">
       <div className="flex items-center justify-between">
@@ -34,12 +41,19 @@ const Header = () => {
               0
             </div>
           </div>
-          <div>
-            <FaRegUserCircle className="text-3xl me-2" />
-            <div className="absolute top-[58px] right-0 text-sm p-4 shadow-2xl bg-slate-100 dropdown">
-              <p className="cursor-pointer whitespace-nowrap">New Product</p>
-              <p className="cursor-pointer whitespace-nowrap">Log In</p>
-            </div>
+          <div className="user">
+            <FaRegUserCircle
+              className="text-3xl me-2"
+              onClick={handleShowHandler}
+            />
+            {isShow && (
+              <div className="absolute top-[58px] right-0 text-sm p-4 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-xl">
+                <p className="cursor-pointer whitespace-nowrap tex-xl">
+                  New Product
+                </p>
+                <p className="cursor-pointer whitespace-nowrap">Log In</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
