@@ -1,7 +1,7 @@
 import logo from "/images/logogrocery.png";
 import "./header.css";
 import { Link } from "react-router-dom";
-import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
+import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
 
 
 const Header = () => {
@@ -29,11 +29,11 @@ const Header = () => {
             </li>
           </nav>
           <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative">
-            <FaUserAlt />
+            <FaShoppingCart className="me-2" />
             <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 text-center top-[-5px] left-[16px]">
               0
             </div>
-            <FaShoppingCart className="me-2" />
+            <FaRegUserCircle />
           </div>
         </div>
       </div>
