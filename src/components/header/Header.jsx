@@ -3,6 +3,7 @@ import "./header.css";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
 
+
 const Header = () => {
   return (
     <header className="fixed shadow-md w-full h-20 px-2 header min-w-[800px]">
@@ -14,14 +15,22 @@ const Header = () => {
         </Link>
         <div className=" flex justify-between gap-x-[8rem]">
           <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
-            <li as={Link} to="/">Home</li>
-            <li as={Link} to="/about">About</li>
-            <li as={Link} to="/menu">Menu</li>
-            <li as={Link} to="/contact">Contact</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/menu">Menu</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
           </nav>
           <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4">
             <FaUserAlt />
-            <FaShoppingCart className="me-2"/>
+            <FaShoppingCart className="me-2" />
           </div>
         </div>
       </div>
