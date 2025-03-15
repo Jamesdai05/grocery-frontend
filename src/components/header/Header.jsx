@@ -33,7 +33,13 @@ const Header = () => {
             <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 text-center top-[-5px] left-[16px]">
               0
             </div>
-            <FaRegUserCircle />
+          </div>
+          <div>
+            <FaRegUserCircle className="text-3xl me-2" />
+            <div className="absolute top-[58px] right-0 text-sm p-4 shadow-2xl bg-slate-100 dropdown">
+              <p className="cursor-pointer whitespace-nowrap">New Product</p>
+              <p className="cursor-pointer whitespace-nowrap">Log In</p>
+            </div>
           </div>
         </div>
       </div>
