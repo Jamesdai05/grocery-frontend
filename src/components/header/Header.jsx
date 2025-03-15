@@ -13,7 +13,7 @@ const Header = () => {
             <img src={logo} alt="logo" className="w-20" />
           </div>
         </Link>
-        <div className=" flex justify-between gap-x-[8rem]">
+        <div className="flex justify-between gap-4 md:gap-7">
           <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
             <li>
               <Link to="/">Home</Link>
