@@ -13,7 +13,7 @@ const Header = () => {
 
 
   return (
-    <header className="fixed shadow-md w-full h-20 px-2 header min-w-[800px]">
+    <header className="shadow-md w-full h-20 px-2 header min-w-[800px]">
       <div className="flex items-center justify-between">
         <Link to="/">
           <div className="flex justify-start items-center">
@@ -47,11 +47,11 @@ const Header = () => {
               onClick={handleShowHandler}
             />
             {isShow && (
-              <div className="absolute top-[58px] right-0 text-sm p-4 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-xl">
-                <p className="cursor-pointer whitespace-nowrap tex-xl">
+              <div className="absolute top-[58px] right-0 text-sm p-4 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
+                <Link to="/new" className="cursor-pointer whitespace-nowrap tex-xl block p-4">
                   New Product
-                </p>
-                <p className="cursor-pointer whitespace-nowrap">Log In</p>
+                </Link>
+                <Link to="/login" className="cursor-pointer whitespace-nowrap block p-4">Log In</Link>
               </div>
             )}
           </div>
