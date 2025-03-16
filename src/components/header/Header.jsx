@@ -37,8 +37,8 @@ const Header = () => {
           </nav>
           <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative">
             <FaShoppingCart className="me-2" />
-            <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 text-center top-[-5px] left-[16px]">
-              0
+            <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
+              <p>0</p>
             </div>
           </div>
           <div className="user">
