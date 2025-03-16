@@ -47,11 +47,11 @@ const Header = () => {
               onClick={handleShowHandler}
             />
             {isShow && (
-              <div className="absolute top-[58px] right-0 text-sm p-4 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
-                <Link to="/new" className="cursor-pointer whitespace-nowrap tex-xl block p-4">
+              <div className="absolute top-[58px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
+                <Link to="/new" className="cursor-pointer whitespace-nowrap text-md block px-2">
                   New Product
                 </Link>
-                <Link to="/login" className="cursor-pointer whitespace-nowrap block p-4">Log In</Link>
+                <Link to="/login" className="cursor-pointer whitespace-nowrap block px-2">Log In</Link>
               </div>
             )}
           </div>
