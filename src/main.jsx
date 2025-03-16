@@ -7,6 +7,8 @@ import About from './pages/About.jsx';
 import Home from './pages/Home.jsx';
 import Menu from "./pages/Menu.jsx";
 import Contact from './pages/Contact.jsx';
+import Login from "./pages/Login.jsx";
+import NewProduct from './pages/NewProduct.jsx';
 
 
 
@@ -17,6 +19,8 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/menu" element={<Menu />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/new" element={<NewProduct />} />
     </Route>
   )
 );
