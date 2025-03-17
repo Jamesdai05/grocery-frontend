@@ -9,3 +9,14 @@ h2 {
   font-size: 24px;
   font-weight: 600;
 }
+
+label {
+  width: 90px;
+  /* margin-right:1em; */
+}
+
+/* @layer components{
+  input {
+    @apply w-full bg-slate-300 p-1 my-1 py-1 px-2 focus:outline-blue-300;
+  }
+} */
