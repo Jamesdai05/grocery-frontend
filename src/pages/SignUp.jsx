@@ -6,8 +6,31 @@ import { Link } from "react-router-dom";
 const SignUp = () => {
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const [isConfirmPasswordShow, setIsConfirmPasswordShow] = useState(false);
+  const [formData,setFormData]=useState({
+    firstName:"",
+    lastName:"",
+    email:"",
+    password:"",
+    confirmPassword:"",
+  })
 
   const handleConfirmPassword=()=>setIsConfirmPasswordShow(prev=>!prev)
+
+  const handleChange=(e)=>{
+    const {name,value}=e.target;
+    setFormData(prev=>{
+      return {
+        ...prev,
+        [name]:value,
+      }
+    })
+  }
+
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log(formData);
+  }
 
   return (
     <div className="flex justp-3 md:p-4">
@@ -15,13 +38,16 @@ const SignUp = () => {
         <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
           <img src={photo} alt="user" className="w-full" />
         </div>
-        <form className="w-full py-3">
+        <form className="w-full py-3" onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
           <input
             type="text"
             placeholder="enter your first name"
             className="mt-1 w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
             id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
           />
           <label htmlFor="lastName">Last Name</label>
           <input
@@ -29,6 +55,9 @@ const SignUp = () => {
             placeholder="enter your last name"
             id="lastName"
             className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
           />
           <label htmlFor="email">Email</label>
           <input
@@ -36,6 +65,9 @@ const SignUp = () => {
             placeholder="enter your email"
             id="email"
             className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
           <label htmlFor="password">Password</label>
           <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
@@ -44,6 +76,9 @@ const SignUp = () => {
               placeholder="enter your password"
               id="password"
               className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
             />
             <span
               onClick={() => setIsPasswordShow((prev) => !prev)}
@@ -58,6 +93,9 @@ const SignUp = () => {
               type={isConfirmPasswordShow ? "text" : "password"}
               className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
               placeholder="confirm the password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
             <span
               className="bg-slate-300 px-2 py-2 rounded-r-md"

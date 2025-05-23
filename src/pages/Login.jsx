@@ -5,6 +5,25 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [isPasswordShow,setIsPasswordShow]=useState(false);
+  const [inputData,setInputData]=useState({
+    email:"",
+    password:"",
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputData);
+  };
 
   return (
     <div className="flex p-3 md:p-4">
@@ -12,13 +31,16 @@ const Login = () => {
         <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
           <img src={photo} alt="user" className="w-full" />
         </div>
-        <form className="w-full py-3">
+        <form className="w-full py-3" onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
             type="email"
             placeholder="enter your email"
             id="email"
             className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
+            name="email"
+            value={inputData.email}
+            onChange={handleChange}
           />
           <label htmlFor="password">Password</label>
           <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
@@ -27,6 +49,9 @@ const Login = () => {
               placeholder="enter your password"
               id="password"
               className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
+              name="password"
+              value={inputData.password}
+              onChange={handleChange}
             />
             <span
               onClick={() => setIsPasswordShow((prev) => !prev)}
@@ -45,7 +70,7 @@ const Login = () => {
               style={{ textDecoration: "underline" }}
               className="hover:text-blue-400"
             >
-              Log in
+              Sign Up
             </Link>
           </p>
         </form>
