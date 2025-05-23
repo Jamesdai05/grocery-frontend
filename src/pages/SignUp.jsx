@@ -1,6 +1,7 @@
 import { useState } from "react";
 import photo from "../../public/images/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [isPasswordShow, setIsPasswordShow] = useState(false);
@@ -47,9 +48,7 @@ const SignUp = () => {
             <span
               onClick={() => setIsPasswordShow((prev) => !prev)}
               className="bg-slate-300 px-2 py-2 rounded-r-md"
-            
             >
-
               {!isPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
             </span>
           </div>
@@ -60,13 +59,26 @@ const SignUp = () => {
               className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
               placeholder="confirm the password"
             />
-            <span className="bg-slate-300 px-2 py-2 rounded-r-md" onClick={handleConfirmPassword}>
+            <span
+              className="bg-slate-300 px-2 py-2 rounded-r-md"
+              onClick={handleConfirmPassword}
+            >
               {!isConfirmPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
             </span>
           </div>
           <button className="btn w-full bg-blue-500 mt-6 text-2xl text-white p-1 rounded">
             Sign Up
           </button>
+          <p className="py-4 px-2">
+            Already got an account?
+            <Link
+              to="/login"
+              style={{ textDecoration: "underline" }}
+              className="hover:text-blue-400"
+            >
+              Log in
+            </Link>
+          </p>
         </form>
       </div>
     </div>
