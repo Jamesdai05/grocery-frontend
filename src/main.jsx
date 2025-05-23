@@ -9,8 +9,8 @@ import Menu from "./pages/Menu.jsx";
 import Contact from './pages/Contact.jsx';
 import Login from "./pages/Login.jsx";
 import NewProduct from './pages/NewProduct.jsx';
-import Login2 from './pages/Login2.jsx';
 import SignUp from './pages/SignUp.jsx';
+// import Login2 from './pages/Login2.jsx';
 
 
 

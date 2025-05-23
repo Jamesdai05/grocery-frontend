@@ -1,4 +1,4 @@
-import logo from "/images/logogrocery.png";
+import logo from "../../assets/logogrocery.png";
 import "./header.css";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";

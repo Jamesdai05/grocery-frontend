@@ -1,5 +1,5 @@
 import { useState } from "react";
-import photo from "../../public/images/login-animation.gif";
+import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 

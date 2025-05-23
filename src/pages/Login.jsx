@@ -1,5 +1,5 @@
 import { useState } from "react";
-import photo from "../../public/images/login-animation.gif";
+import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const Login = () => {
   const [isPasswordShow,setIsPasswordShow]=useState(false);
 
   return (
-    <div className="flex justp-3 md:p-4">
+    <div className="flex p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex items-center flex-col p-4">
         <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
           <img src={photo} alt="user" className="w-full" />
