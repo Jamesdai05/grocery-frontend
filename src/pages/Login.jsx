@@ -2,6 +2,9 @@ import { useState } from "react";
 import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import {toast} from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isPasswordShow,setIsPasswordShow]=useState(false);
@@ -9,6 +12,8 @@ const Login = () => {
     email:"",
     password:"",
   })
+
+  const navigate=useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,13 +25,26 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(inputData);
+    // console.log(inputData);
+    try {
+      const response = await axios.post("/api/users/login", inputData, {
+        withCredentials: true,
+      });
+      // console.log(response.data);
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+
+      toast.success("Login successful" );
+      navigate("/");
+    } catch (err) {
+      console.log(err.response.data.message);
+      toast.error(err.response.data.message);
+    }
   };
 
   return (
-    <div className="flex p-3 md:p-4">
+    <div className="flex p-4 md:pt-24">
       <div className="w-full max-w-sm bg-white m-auto flex items-center flex-col p-4">
         <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
           <img src={photo} alt="user" className="w-full" />

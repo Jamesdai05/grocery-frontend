@@ -31,9 +31,6 @@ const Header = () => {
             <li>
               <Link to="/menu">Menu</Link>
             </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
           </nav>
           <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative">
             <FaShoppingCart className="me-2" />

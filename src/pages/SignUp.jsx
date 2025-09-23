@@ -1,18 +1,22 @@
 import { useState } from "react";
 import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
+
+import axios from "axios";
 
 const SignUp = () => {
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const [isConfirmPasswordShow, setIsConfirmPasswordShow] = useState(false);
   const [formData,setFormData]=useState({
-    firstName:"",
-    lastName:"",
+    username:"",
     email:"",
     password:"",
     confirmPassword:"",
   })
+
+  const navigate=useNavigate()
 
   const handleConfirmPassword=()=>setIsConfirmPasswordShow(prev=>!prev)
 
@@ -27,99 +31,118 @@ const SignUp = () => {
   }
 
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
-    console.log(formData);
+    if(formData.password !== formData.confirmPassword){
+      return alert("passwords do not match")
+    }
+    if(formData.password.length < 6){
+      return alert("password must be at least 6 characters")
+    }
+    if(!formData.email || !formData.username || !formData.password || !formData.confirmPassword){
+      return alert("All fields are required")
+    }
+    try{
+        // const response = await axios.post("/api/users/register", formData);
+        const response=await axios.post("/api/users/register",formData,{
+          withCredentials:true,
+        })
+      // console.log(response.data)
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      navigate("/")
+      toast.success("Registration successful.")
+    }catch(err){
+      console.log(err.response.data.message)
+      toast.error(err.response.data.message)
+    }
   }
 
   return (
-    <div className="flex justp-3 md:p-4">
-      <div className="w-full max-w-sm bg-white m-auto flex items-center flex-col p-4">
-        <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
-          <img src={photo} alt="user" className="w-full" />
-        </div>
-        <form className="w-full py-3" onSubmit={handleSubmit}>
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="text"
-            placeholder="enter your first name"
-            className="mt-1 w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            placeholder="enter your last name"
-            id="lastName"
-            className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            placeholder="enter your email"
-            id="email"
-            className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <label htmlFor="password">Password</label>
-          <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
-            <input
-              type={isPasswordShow ? "text" : "password"}
-              placeholder="enter your password"
-              id="password"
-              className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <span
-              onClick={() => setIsPasswordShow((prev) => !prev)}
-              className="bg-slate-300 px-2 py-2 rounded-r-md"
-            >
-              {!isPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
-            </span>
+      <div className="flex p-4 md:pt-24">
+          <div className="w-full max-w-sm bg-white m-auto flex items-center flex-col p-4">
+              <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
+                  <img src={photo} alt="user" className="w-full" />
+              </div>
+              <form className="w-full py-3" onSubmit={handleSubmit}>
+                  <label htmlFor="username">Username</label>
+                  <input
+                      type="text"
+                      placeholder="enter your first name"
+                      className="mt-1 w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
+                      id="username"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      required
+                  />
+                  <label htmlFor="email">Email</label>
+                  <input
+                      type="email"
+                      placeholder="enter your email"
+                      id="email"
+                      className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                  />
+                  <label htmlFor="password">Password</label>
+                  <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
+                      <input
+                          type={isPasswordShow ? "text" : "password"}
+                          placeholder="enter your password"
+                          id="password"
+                          className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
+                          name="password"
+                          value={formData.password}
+                          onChange={handleChange}
+                          required
+                      />
+                      <span
+                          onClick={() => setIsPasswordShow((prev) => !prev)}
+                          className="bg-slate-300 px-2 py-2 rounded-r-md"
+                      >
+                          {!isPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
+                      </span>
+                  </div>
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
+                      <input
+                          type={isConfirmPasswordShow ? "text" : "password"}
+                          className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
+                          placeholder="confirm the password"
+                          name="confirmPassword"
+                          value={formData.confirmPassword}
+                          onChange={handleChange}
+                          required
+                      />
+                      <span
+                          className="bg-slate-300 px-2 py-2 rounded-r-md"
+                          onClick={handleConfirmPassword}
+                      >
+                          {!isConfirmPasswordShow ? (
+                              <FaRegEye />
+                          ) : (
+                              <FaRegEyeSlash />
+                          )}
+                      </span>
+                  </div>
+                  <button className="btn w-full bg-blue-500 mt-6 text-2xl text-white p-1 rounded">
+                      Sign Up
+                  </button>
+                  <p className="py-4 px-2">
+                      Already got an account?
+                      <Link
+                          to="/login"
+                          style={{ textDecoration: "underline" }}
+                          className="hover:text-blue-400"
+                      >
+                          Log in
+                      </Link>
+                  </p>
+              </form>
           </div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
-            <input
-              type={isConfirmPasswordShow ? "text" : "password"}
-              className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
-              placeholder="confirm the password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-            <span
-              className="bg-slate-300 px-2 py-2 rounded-r-md"
-              onClick={handleConfirmPassword}
-            >
-              {!isConfirmPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
-            </span>
-          </div>
-          <button className="btn w-full bg-blue-500 mt-6 text-2xl text-white p-1 rounded">
-            Sign Up
-          </button>
-          <p className="py-4 px-2">
-            Already got an account?
-            <Link
-              to="/login"
-              style={{ textDecoration: "underline" }}
-              className="hover:text-blue-400"
-            >
-              Log in
-            </Link>
-          </p>
-        </form>
       </div>
-    </div>
   );
 };
 export default SignUp;
