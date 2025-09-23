@@ -6,10 +6,10 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import About from './pages/About.jsx';
 import Home from './pages/Home.jsx';
 import Menu from "./pages/Menu.jsx";
-import Contact from './pages/Contact.jsx';
 import Login from "./pages/Login.jsx";
 import NewProduct from './pages/NewProduct.jsx';
 import SignUp from './pages/SignUp.jsx';
+import ProductDetails from './pages/ProductDetails.jsx';
 // import Login2 from './pages/Login2.jsx';
 
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="/" index={true} element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/menu" element={<Menu />} />
-      <Route path="/contact" element={<Contact />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/login" element={<Login />} />
       <Route path="/new" element={<NewProduct />} />
       <Route path="/signup" element={<SignUp />} />

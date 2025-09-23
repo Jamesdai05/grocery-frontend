@@ -1,0 +1,116 @@
+import { Link, useParams } from "react-router-dom";
+import Rating from '../components/Rating';
+import { MdAddShoppingCart } from "react-icons/md";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+
+const ProductDetails = () => {
+
+    const [product,setProduct]=useState({})
+    const {id:productId}=useParams()
+    console.log(productId)
+
+    useEffect(()=>{
+        const fetchProduct=async()=>{
+            try{
+                const response=await axios.get(`/api/products/${productId}`)
+                console.log(response.data)
+                setProduct(response.data)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        fetchProduct()
+
+    },[productId])
+
+    console.log(product)
+
+
+  return (
+      <>
+          <div className="content flex flex-col">
+              <div className="mb-4 ms-10">
+                  <Link to="/" className="btn">
+                      Go Back
+                  </Link>
+              </div>
+              <div className="content2">
+                  <div className="product-card">
+                      <div className="product-img">
+                          <img
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full object-cover"
+                          />
+                      </div>
+                      <div className="details">
+                          <h2 className="text-bold">{product.name}</h2>
+                          <div className="review">
+                              <Rating
+                                  value={product.rating}
+                                  text={`${product.numReviews} Reviews`}
+                              />
+                          </div>
+                          <h3 className="text-xl">Price:${product.price}</h3>
+                          <p className="leading-normal">
+                              {product.description}
+                          </p>
+                      </div>
+                      <div className="price-info">
+                          <div className="price item">
+                              <p>Price</p>
+                              <p className="text-2xl">${product.price}</p>
+                          </div>
+                          <div className="quantity item">
+                              <p>Qty:</p>
+                              <p>{}</p>
+                          </div>
+                          <div className="addCart item">
+                              <button className="btn flex justify-between items-center gap-2">
+                                  <MdAddShoppingCart />
+                                  Add To Cart
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div className="row-span-4 md:col-span-6 w-full mx-auto">
+                  <h3 className="ms-12 text-2xl font-bold">Reviews</h3>
+                  {/* {product.reviews.length === 0 && (
+                            <Message>No review yet.</Message>
+                        )} */}
+
+                  <div className="w-full review-input col-span-4 md:col-span-6 ms-12">
+                      <h4>Write a review</h4>
+                      <select
+                          name="review"
+                          id="review"
+                          className="border-1 w-2xl"
+                      >
+                          <option value="">Make a review</option>
+                          <option value="1">Very Poor - 1</option>
+                          <option value="2">Poor - 2</option>
+                          <option value="3">Fair - 3</option>
+                          <option value="4">Good - 4</option>
+                          <option value="5">Excellent-5</option>
+                      </select>
+                      <form action="">
+                          <textarea
+                              type="text"
+                              rows="3"
+                              className="border-1 my-4 block rounded p-2 w-2xl"
+                              placeholder="enter the review"
+                          />
+                          <button type="submit" className="btn">
+                              Submit
+                          </button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </>
+  );
+}
+export default ProductDetails

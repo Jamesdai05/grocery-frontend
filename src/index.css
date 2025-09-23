@@ -11,7 +11,7 @@ h2 {
 }
 
 .content {
-  @apply max-w-[1180px] mt-4 mx-auto;
+  @apply max-w-[1200px] mt-4 mx-auto;
 }
 
 .image{
@@ -19,7 +19,7 @@ h2 {
 }
 
 .text{
-  @apply relative right-10 w-[100px] text-3xl;
+  @apply relative right-0 w-[100px] text-3xl mb-4;
 }
 
 .list{
@@ -42,3 +42,36 @@ h2 {
 #rating-text {
   @apply text-[0.8rem] font-normal pl-2 text-black;
 }
+
+.btn {
+  @apply bg-blue-500 text-white text-xl p-2 rounded;
+}
+
+.content2{
+  @apply w-full mx-auto flex justify-center;
+}
+
+.product-card{
+  @apply flex justify-evenly w-full;
+}
+
+.product-img{
+  @apply w-[40%] bg-white border-r-2 border-r-white;
+}
+
+.details{
+  @apply flex flex-col justify-start gap-4 p-4 w-[30%] bg-gray-50;
+}
+
+.price-info{
+  @apply flex flex-col border-1 p-4 border-gray-50 w-[30%] gap-4 bg-gray-50;
+}
+
+price-info > p{
+  @apply text-lg font-bold;
+}
+
+.item{
+  @apply flex justify-between w-[80%] mx-auto;
+}
+
