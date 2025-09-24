@@ -65,7 +65,18 @@ const ProductDetails = () => {
                           </div>
                           <div className="quantity item">
                               <p>Qty:</p>
-                              <p>{}</p>
+                              <select
+                                  className="bg-white border-2 rounded"
+                                  name="quantity"
+                                  id="quantity"
+                              >
+                                  <option value="">Select qty</option>
+                                  <option value="1">1</option>
+                                  <option value="1">2</option>
+                                  <option value="1">3</option>
+                                  <option value="1">4</option>
+                                  <option value="1">5</option>
+                              </select>
                           </div>
                           <div className="addCart item">
                               <button className="btn flex justify-between items-center gap-2">

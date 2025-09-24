@@ -2,7 +2,8 @@ import logo from "../../assets/logogrocery.png";
 import "./header.css";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
 
 
 const Header = () => {
@@ -11,50 +12,82 @@ const Header = () => {
 
   const handleShowHandler=()=>setIsShow(prev=>!prev)
 
+  const containerRef=useRef(null)
+
+  useEffect(()=>{
+    const handleClickOutside=(e)=>{
+      if(
+        containerRef.current &&
+        !containerRef.current.contains(e.target)
+      ){
+          setIsShow(false);
+        //   console.log(e.target)
+        }
+    }
+
+    const handleEscKey=(e)=>{
+        if(e.key === "Escape"){
+            setIsShow(false);
+        }
+    }
+
+    document.addEventListener("mousedown",handleClickOutside)
+    document.addEventListener("keydown",handleEscKey);
+    return ()=>{
+        document.removeEventListener("mousedown",handleClickOutside);
+        document.removeEventListener("keydown",handleEscKey);
+    }
+  },[])
+
 
   return (
-    <header className="shadow-md w-full h-20 px-2 header min-w-[800px]">
-      <div className="flex items-center justify-between">
-        <Link to="/">
-          <div className="flex justify-start items-center">
-            <img src={logo} alt="logo" className="w-20" />
-          </div>
-        </Link>
-        <div className="flex justify-between gap-4 md:gap-7">
-          <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/menu">Menu</Link>
-            </li>
-          </nav>
-          <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative">
-            <FaShoppingCart className="me-2" />
-            <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
-              <p>0</p>
-            </div>
-          </div>
-          <div className="user">
-            <FaRegUserCircle
-              className="text-3xl me-2"
-              onClick={handleShowHandler}
-            />
-            {isShow && (
-              <div className="absolute top-[58px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
-                <Link to="/new" className="cursor-pointer whitespace-nowrap text-md block px-2">
-                  New Product
-                </Link>
-                <Link to="/login" className="cursor-pointer whitespace-nowrap block px-2">Log In</Link>
+      <header className="shadow-md w-full h-20 px-2 header min-w-[800px]">
+          <div className="flex items-center justify-between">
+              <Link to="/">
+                  <div className="flex justify-start items-center">
+                      <img src={logo} alt="logo" className="w-20" />
+                  </div>
+              </Link>
+              <div className="flex justify-between gap-4 md:gap-7">
+                  <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
+                      <li>
+                          <Link to="/">Home</Link>
+                      </li>
+                      <li>
+                          <Link to="/about">About</Link>
+                      </li>
+                      <li>
+                          <Link to="/menu">Menu</Link>
+                      </li>
+                  </nav>
+                  <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative cursor-pointer">
+                      <FaShoppingCart className="me-2" />
+                      <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <button className="user relative" ref={containerRef}>
+                      <FaRegUserCircle
+                          className="text-3xl me-2 cursor-pointer"
+                          onClick={handleShowHandler}
+                      />
+                      {isShow && (
+                          <div className="absolute top-[38px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
+                              <Link to="/new" className="dropdown-link">
+                                  New Product
+                              </Link>
+                              <Link to="/login" className="dropdown-link">
+                                  Log In
+                              </Link>
+                              <Link to="/profile" className="dropdown-link">
+                                  User Profile
+                              </Link>
+                          </div>
+                      )}
+                  </button>
               </div>
-            )}
           </div>
-        </div>
-      </div>
-    </header>
+      </header>
   );
 }
 export default Header
