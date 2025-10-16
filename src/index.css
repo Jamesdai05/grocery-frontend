@@ -11,7 +11,7 @@ h2 {
 }
 
 .content {
-  @apply max-w-[1200px] mt-4 mx-auto;
+  @apply container max-w-[1200px] mt-4 mx-auto;
 }
 /* seach bar in header */
 .search {
@@ -64,27 +64,27 @@ h2 {
 }
 
 .content2{
-  @apply w-full mx-auto flex justify-center mt-4 px-4;
+  @apply w-full mx-auto flex flex-col md:flex-row justify-center mt-4 bg-gray-100;
 }
 
 .product-card{
-  @apply flex justify-evenly w-full;
+  @apply flex flex-col justify-evenly w-full md:flex-row gap-4 border-2 border-blue-50 rounded;
 }
 
 .product-img{
-  @apply w-[40%] bg-white border-r-2 border-r-white;
+  @apply sm:w-5/12 w-full bg-white;
 }
 
 .details{
-  @apply flex flex-col justify-start gap-4 p-4 w-[30%] bg-gray-50;
+  @apply flex flex-col justify-start gap-4 sm:w-4/12 w-full;
 }
 
 .price-info{
-  @apply flex flex-col border-1 p-4 border-gray-50 w-[30%] gap-4 bg-gray-50;
+  @apply flex flex-col sm:w-4/12 w-full border-1 border-gray-50 gap-4 rounded;
 }
 
-price-info > p{
-  @apply text-lg font-bold;
+.price-info > h2{
+  @apply text-lg;
 }
 
 .item{

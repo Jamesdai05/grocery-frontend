@@ -28,7 +28,7 @@ const Carousel = ({ slides, autoSlide = true, autoSlideInterval = 3000 }) => {
                         key={idx}
                         src={slide}
                         alt={`slide-${idx}`}
-                        className="flex flex-shrink-0 object-contain w-full"
+                        className="flex flex-shrink-0 object-contain w-full pt-4"
                     />
                 ))}
             </div>

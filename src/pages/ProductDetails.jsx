@@ -60,11 +60,15 @@ const ProductDetails = () => {
                       </div>
                       <div className="price-info">
                           <div className="price item">
-                              <p>Price</p>
-                              <p className="text-2xl">${product.price}</p>
+                              <h2>Price</h2>
+                              <h2>${product.price}</h2>
+                          </div>
+                          <div className="price item">
+                              <h2>Status</h2>
+                              <h2>{product.status}</h2>
                           </div>
                           <div className="quantity item">
-                              <p>Qty:</p>
+                              <h2>Qty:</h2>
                               <select
                                   className="bg-white border-2 rounded"
                                   name="quantity"
@@ -88,17 +92,16 @@ const ProductDetails = () => {
                   </div>
               </div>
               <div className="row-span-4 md:col-span-6 w-full mx-auto mt-4">
-                  <h3 className="text-2xl font-bold">Reviews</h3>
                   {/* {product.reviews.length === 0 && (
                             <Message>No review yet.</Message>
                         )} */}
 
                   <div className="w-full review-input col-span-4 md:col-span-6 ms-12">
-                      <h4>Write a review</h4>
+                      <h3 className="text-2xl font-bold mb-4">Reviews</h3>
                       <select
                           name="review"
                           id="review"
-                          className="border-1 w-xl"
+                          className="border-1 w-xl rounded"
                       >
                           <option value="">Make a review</option>
                           <option value="1">Very Poor - 1</option>
