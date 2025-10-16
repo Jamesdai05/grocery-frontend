@@ -48,6 +48,10 @@ const Header = () => {
                       <img src={logo} alt="logo" className="w-20" />
                   </div>
               </Link>
+              <div className="form ms-6 hidden md:flex">
+                <input type="text" placeholder="Enter the product" className="search"/>
+                <button className="btn-search">Search</button>
+              </div>
               <div className="flex justify-between gap-4 md:gap-7">
                   <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
                       <li>
@@ -56,15 +60,14 @@ const Header = () => {
                       <li>
                           <Link to="/about">About</Link>
                       </li>
-                      <li>
-                          <Link to="/menu">Menu</Link>
-                      </li>
                   </nav>
                   <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative cursor-pointer">
-                      <FaShoppingCart className="me-2" />
-                      <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
-                          <p>0</p>
-                      </div>
+                        <Link to="/cart">
+                            <FaShoppingCart className="me-2" />
+                            <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
+                            <p>0</p>
+                            </div>
+                        </Link>
                   </div>
                   <button className="user relative" ref={containerRef}>
                       <FaRegUserCircle

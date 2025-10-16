@@ -17,7 +17,7 @@ const Carousel = ({ slides, autoSlide = true, autoSlideInterval = 3000 }) => {
     }, [autoSlide, autoSlideInterval]);
 
     return (
-        <div className="relative w-[50vw] max-w-4xl mx-auto overflow-hidden rounded-xl shadow-lg h-[50vh]">
+        <div className="relative w-[80vw] max-w-6xl mx-auto overflow-hidden rounded-xl shadow-lg h-[50vh]">
             {/* Slides */}
             <div
                 className="flex transition-transform ease-out duration-500 h-full w-full"
@@ -28,7 +28,7 @@ const Carousel = ({ slides, autoSlide = true, autoSlideInterval = 3000 }) => {
                         key={idx}
                         src={slide}
                         alt={`slide-${idx}`}
-                        className="flex-shrink-0 object-cover h-full w-full"
+                        className="flex flex-shrink-0 object-contain w-full"
                     />
                 ))}
             </div>

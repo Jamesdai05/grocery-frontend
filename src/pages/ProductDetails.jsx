@@ -31,7 +31,7 @@ const ProductDetails = () => {
   return (
       <>
           <div className="content flex flex-col">
-              <div className="mb-4 ms-10">
+              <div className="my-4 ms-10">
                   <Link to="/" className="btn">
                       Go Back
                   </Link>
@@ -87,8 +87,8 @@ const ProductDetails = () => {
                       </div>
                   </div>
               </div>
-              <div className="row-span-4 md:col-span-6 w-full mx-auto">
-                  <h3 className="ms-12 text-2xl font-bold">Reviews</h3>
+              <div className="row-span-4 md:col-span-6 w-full mx-auto mt-4">
+                  <h3 className="text-2xl font-bold">Reviews</h3>
                   {/* {product.reviews.length === 0 && (
                             <Message>No review yet.</Message>
                         )} */}
@@ -98,7 +98,7 @@ const ProductDetails = () => {
                       <select
                           name="review"
                           id="review"
-                          className="border-1 w-2xl"
+                          className="border-1 w-xl"
                       >
                           <option value="">Make a review</option>
                           <option value="1">Very Poor - 1</option>
@@ -111,7 +111,7 @@ const ProductDetails = () => {
                           <textarea
                               type="text"
                               rows="3"
-                              className="border-1 my-4 block rounded p-2 w-2xl"
+                              className="border-1 my-4 block rounded p-2 w-xl"
                               placeholder="enter the review"
                           />
                           <button type="submit" className="btn">

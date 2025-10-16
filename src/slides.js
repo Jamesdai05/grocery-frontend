@@ -1,5 +1,5 @@
 export const slides=[
-    "https://img.freepik.com/premium-photo/picture-laptop_931878-305723.jpg",
-    "https://img.freepik.com/premium-photo/sleek-3d-laptop-mockup-product-showcasing_1046319-7028.jpg",
-    "https://m.media-amazon.com/images/I/71ihmVagpzL._AC_SX679_.jpg",
+    "https://media.nedigital.sg/fairprice/fpol/media/images/product/XL/13215146_XL1_20230728.jpg?w=320&q=60",
+    "https://media.nedigital.sg/fairprice/fpol/media/images/product/XL/13057646_XL1_20230113.jpg?w=320&q=60",
+    "https://media.nedigital.sg/fairprice/fpol/media/images/product/XL/13225540_XL1_20230502.jpg?w=320&q=60",
 ]

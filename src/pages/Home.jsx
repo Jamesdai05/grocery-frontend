@@ -25,7 +25,7 @@ const Home = () => {
 
 
   return (
-      <div className="flex justify-center flex-col mx-auto w-full">
+      <div className="flex justify-center items-center flex-col mx-auto w-full max-w-[100vw]">
           <Carousel slides={slides} />
           <div className="content">
               <div className="text">

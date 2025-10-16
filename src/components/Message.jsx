@@ -1,4 +1,4 @@
-const Message = ({ type = "info", message }) => {
+const Message = ({ type = "info", children }) => {
     const colors = {
         success: "bg-green-50 border-green-300 text-green-800",
         error: "bg-red-50 border-red-300 text-red-800",
@@ -8,7 +8,7 @@ const Message = ({ type = "info", message }) => {
 
     return (
         <div className={`p-4 mb-4 text-sm border rounded-lg ${colors[type]}`}>
-            {message}
+            {children}
         </div>
     );
 };
