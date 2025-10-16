@@ -13,6 +13,8 @@ import Profile from './pages/Profile.jsx';
 import About from './pages/About.jsx';
 import CartPage from './pages/CartPage.jsx';
 import ShippingInfo from './pages/ShippingInfo.jsx';
+import PaymentPage from './pages/PaymentPage.jsx';
+import PlaceOrder from './pages/PlaceOrder.jsx';
 // import Login2 from './pages/Login2.jsx';
 
 
@@ -25,10 +27,11 @@ const router = createBrowserRouter(
         <Route path="/" element={<App />}>
             <Route path="/" index={true} element={<Home />} />
             <Route path="/Profile" element={<Profile />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/placeOrder" element={<PlaceOrder />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/shipping" element={<ShippingInfo />} />
+            <Route path="/payment" element={<PaymentPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/new" element={<NewProduct />} />
             <Route path="/signup" element={<SignUp />} />
