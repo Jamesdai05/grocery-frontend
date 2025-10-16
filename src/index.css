@@ -111,10 +111,24 @@ h2 {
 }
 
 .profile-btn{
-    @apply w-[20%]
+    @apply w-[20%];
 }
 
 /* cart page */
 .checkout-btn {
     @apply bg-blue-600 hover:bg-blue-700 text-white p-3 rounded disabled:opacity-50;
+}
+
+/* Checkout compont */
+
+.step {
+    @apply text-blue-500;
+}
+
+.form-control2{
+    @apply w-full flex flex-col gap-2;
+}
+
+.form-input2{
+    @apply border-1 border-gray-400 p-2 w-full rounded;
 }

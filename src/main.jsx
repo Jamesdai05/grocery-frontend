@@ -12,6 +12,7 @@ import ProductDetails from './pages/ProductDetails.jsx';
 import Profile from './pages/Profile.jsx';
 import About from './pages/About.jsx';
 import CartPage from './pages/CartPage.jsx';
+import ShippingInfo from './pages/ShippingInfo.jsx';
 // import Login2 from './pages/Login2.jsx';
 
 
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
             <Route path="/about" element={<About />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/shipping" element={<ShippingInfo />} />
             <Route path="/login" element={<Login />} />
             <Route path="/new" element={<NewProduct />} />
             <Route path="/signup" element={<SignUp />} />

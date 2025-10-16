@@ -44,8 +44,8 @@ const Profile = () => {
                             className="form-input"
                         />
                     </div>
-                    <div className="btn profile-btn">
-                        <button type="submit" className="btn-primary">
+                    <div className="profile-btn">
+                        <button type="submit" className="btn-primary btn">
                             Update
                         </button>
                     </div>
