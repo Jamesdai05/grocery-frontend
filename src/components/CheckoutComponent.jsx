@@ -15,11 +15,7 @@ const CheckoutComponent = ({step1,step2,step3,step4}) => {
             ) : (
                 <span className="text-gray-400 font-medium">Sign In</span>
             )}
-            <div
-                className={`w-3 h-3 rounded-full mt-1 ${
-                    step1 ? "bg-blue-600" : "bg-gray-300"
-                }`}
-            />
+
         </div>
 
         {/* Arrow Separator */}
@@ -52,11 +48,11 @@ const CheckoutComponent = ({step1,step2,step3,step4}) => {
             ) : (
                 <span className="text-gray-400 font-medium">Shipping</span>
             )}
-            <div
+            {/* <div
                 className={`w-3 h-3 rounded-full mt-1 ${
                     step2 ? "bg-blue-600" : "bg-gray-300"
                 }`}
-            />
+            /> */}
         </div>
 
         {/* Arrow Separator */}
@@ -89,11 +85,11 @@ const CheckoutComponent = ({step1,step2,step3,step4}) => {
             ) : (
                 <span className="text-gray-400 font-medium">Payment</span>
             )}
-            <div
+            {/* <div
                 className={`w-3 h-3 rounded-full mt-1 ${
                     step3 ? "bg-blue-600" : "bg-gray-300"
                 }`}
-            />
+            /> */}
         </div>
 
         {/* Arrow Separator */}
@@ -126,11 +122,11 @@ const CheckoutComponent = ({step1,step2,step3,step4}) => {
             ) : (
                 <span className="text-gray-400 font-medium">Place Order</span>
             )}
-            <div
+            {/* <div
                 className={`w-3 h-3 rounded-full mt-1 ${
                     step4 ? "bg-blue-600" : "bg-gray-300"
                 }`}
-            />
+            /> */}
         </div>
     </div>
   );
