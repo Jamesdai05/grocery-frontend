@@ -5,8 +5,8 @@ const PaymentPage = () => {
   return (
     <FormContainer>
         <CheckoutComponent step1 step2 step3/>
-        <h1 className="text-2xl font-bold my-6">Payment Method</h1>
         <form action="" className="form-container max-w-4xl">
+            <h1 className="text-2xl font-bold my-6">Payment Method</h1>
             <div className="flex justify-flex-start gap-4">
                 <input
                     type="radio"

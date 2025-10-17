@@ -5,8 +5,8 @@ const ShippingInfo = () => {
   return (
     <FormContainer>
         <CheckoutComponent step1 step2/>
-        <h1 className="text-2xl font-bold my-6">Shipping Info</h1>
         <form action="" className="form-container max-w-6xl">
+            <h1 className="text-2xl font-bold my-6">Shipping Info</h1>
             <div className="form-control2">
                 <label htmlFor="address">Address</label>
                 <input
