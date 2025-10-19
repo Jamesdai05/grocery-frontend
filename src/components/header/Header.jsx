@@ -95,42 +95,34 @@ const Header = () => {
                           {isShow && (
                               <div className="absolute top-[38px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
                                   {user ? (
-                                      <>
-                                          <Link
-                                              to="/new"
-                                              className="dropdown-link"
-                                          >
-                                              New Product
-                                          </Link>
-                                          <Link
-                                              to="/profile"
-                                              className="dropdown-link"
-                                          >
-                                              User Profile
-                                          </Link>
-                                          <button
-                                              onClick={handleLogOut}
-                                              className="dropdown-link"
-                                          >
-                                              Log Out
-                                          </button>
-                                      </>
+                                    <>
+                                        <Link
+                                            to="/new"
+                                            className="dropdown-link"
+                                        >
+                                            New Product
+                                        </Link>
+                                        <Link
+                                            to="/profile"
+                                            className="dropdown-link"
+                                        >
+                                            User Profile
+                                        </Link>
+                                        <button
+                                            onClick={handleLogOut}
+                                            className="dropdown-link"
+                                        >
+                                            Log Out
+                                        </button>
+                                    </>
                                   ) : (
-                                      <>
-                                          <Link
-                                              to="/login"
-                                              className="dropdown-link"
-                                          >
-                                              Log In
-                                          </Link>
-                                          <Link
-                                              to="/profile"
-                                              className="dropdown-link"
-                                          >
-                                              User Profile
-                                          </Link>
-                                      </>
-                                  )}
+                                    <Link
+                                        to="/login"
+                                        className="dropdown-link"
+                                    >
+                                        Log In
+                                    </Link>
+                                )}
                               </div>
                           )}
                       </button>
