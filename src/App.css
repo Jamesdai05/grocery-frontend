@@ -1,4 +1,5 @@
 .app {
   /* background-color: beige; */
   min-height: 100vh;
+  min-width: 100vw;
 }

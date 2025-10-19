@@ -10,6 +10,10 @@ h2 {
   font-weight: 600;
 }
 
+.form{
+    @apply flex justify-center;
+}
+
 .content {
   @apply container max-w-[1200px] mt-4 mx-auto;
 }
@@ -64,23 +68,23 @@ h2 {
 }
 
 .content2{
-  @apply w-full mx-auto flex flex-col md:flex-row justify-center mt-4 bg-gray-100;
+  @apply w-full mx-auto flex flex-col md:flex-row justify-center items-center mt-4 bg-gray-100 sm:overflow-x-hidden;
 }
 
 .product-card{
-  @apply flex flex-col justify-evenly w-full md:flex-row gap-4 border-2 border-blue-50 rounded;
+  @apply flex flex-col md:flex-row gap-4 border border-blue-50 rounded bg-white shadow-md;
 }
 
 .product-img{
-  @apply sm:w-5/12 w-full bg-white;
+  @apply sm:w-5/12 w-full bg-white mx-auto;
 }
 
 .details{
-  @apply flex flex-col justify-start gap-4 sm:w-4/12 w-full;
+  @apply flex flex-col justify-center md:justify-start gap-4 sm:w-4/12 w-full items-center md:items-start mx-auto;
 }
 
 .price-info{
-  @apply flex flex-col sm:w-4/12 w-full border-1 border-gray-50 gap-4 rounded;
+  @apply flex flex-col sm:w-4/12 w-full mx-auto border-1 border-gray-50 gap-4 rounded;
 }
 
 .price-info > h2{

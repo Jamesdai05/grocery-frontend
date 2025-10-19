@@ -54,8 +54,8 @@ const ProductDetails = () => {
 
     return (
         <>
-            <div className="content flex flex-col">
-                <div className="my-4 ms-10">
+            <div className="flex flex-col max-w-[1200px] mx-auto ">
+                <div className="my-4">
                     <Link to="/" className="btn">
                         Go Back
                     </Link>
@@ -120,7 +120,7 @@ const ProductDetails = () => {
                             <Message>No review yet.</Message>
                         )} */}
 
-                    <div className="w-full review-input col-span-4 md:col-span-6 ms-12">
+                    <div className="w-full review-input col-span-4 md:col-span-6 ">
                         <h3 className="text-2xl font-bold mb-4">Reviews</h3>
                         <select
                             name="review"
