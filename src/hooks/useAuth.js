@@ -33,7 +33,7 @@ export const useLogOut=()=>{
         mutationKey:["logoutUser"],
         mutationFn: logOutUser,
         onSuccess:()=>{
-            localStorage.removeItem("userInfo")
+            // localStorage.removeItem("userInfo")
             queryClient.removeQueries(["currentUser"]);
             toast.success("Logged out successfully")
         },
