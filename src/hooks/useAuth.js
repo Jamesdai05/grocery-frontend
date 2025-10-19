@@ -1,6 +1,6 @@
 import { useQuery,useMutation,useQueryClient } from "@tanstack/react-query";
 
-import { userRegistration,fetchCurrentUser, logOutUser } from "../apiCall/dataFetch.js";
+import { userRegistration,fetchCurrentUser, logOutUser,loginUser } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 
 export const useCurrentUser=()=>{
@@ -9,6 +9,7 @@ export const useCurrentUser=()=>{
         queryFn:fetchCurrentUser,
         staleTime:5*60*1000, // 5 minutes
         retry:0,
+        enabled:true,
     })
 }
 
@@ -41,4 +42,20 @@ export const useLogOut=()=>{
             toast.error(err?.response?.data?.message || err.message)
         }
     })
+}
+
+export const useLogin=()=>{
+    const queryClient=useQueryClient();
+    return useMutation({
+        mutationKey:["loginUser"],
+        mutationFn:loginUser,
+        onSuccess:async()=>{
+            // Refetch current user after login
+            await queryClient.invalidateQueries(["currentUser"]);
+            toast.success("Login successful!");
+        },
+        onError:(err)=>{
+            toast.error(err?.response?.data?.message || err.message)
+        }
+    });
 }
