@@ -4,9 +4,10 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../dataFetch.js";
+// import { useMutation } from "@tanstack/react-query";
+// import { loginUser } from "../dataFetch.js";
 import Loader from "../components/Loader.jsx";
+import { useLogin } from "../hooks/useAuth.js";
 
 
 const Login = () => {
@@ -28,22 +29,26 @@ const Login = () => {
         });
     };
 
-    const {
-        mutate:login,
-        isPending,
-    } = useMutation({
-        mutationKey: ["User"],
-        mutationFn: loginUser,
-        onSuccess: (data) => {
-            console.log("Login successfully",data);
-            toast.success("Login Successful");
-            localStorage.setItem("userInfo", JSON.stringify(data));
-            navigate("/");
-        },
-        onError:(error)=>{
-            toast.error(error?.response?.data?.message || error.message);
-        }
-    });
+    const {login, isPending}=useLogin();
+
+    // const login=mutate;
+
+    // const {
+    //     mutate:login,
+    //     isPending,
+    // } = useMutation({
+    //     mutationKey: ["User"],
+    //     mutationFn: loginUser,
+    //     onSuccess: (data) => {
+    //         console.log("Login successfully",data);
+    //         toast.success("Login Successful");
+    //         localStorage.setItem("userInfo", JSON.stringify(data));
+    //         navigate("/");
+    //     },
+    //     onError:(error)=>{
+    //         toast.error(error?.response?.data?.message || error.message);
+    //     }
+    // });
 
     const handleSubmit = (e) => {
         e.preventDefault();

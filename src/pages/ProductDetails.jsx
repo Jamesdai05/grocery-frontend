@@ -3,7 +3,7 @@ import Rating from '../components/Rating';
 import { MdAddShoppingCart } from "react-icons/md";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
-import { fetchProductById } from "../dataFetch.js";
+import { fetchProductById } from "../apiCall/dataFetch.js";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../components/Loader.jsx";
 import Message from "../components/Message.jsx";
