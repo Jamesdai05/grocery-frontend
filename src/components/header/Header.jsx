@@ -91,7 +91,7 @@ const Header = () => {
                               className="text-3xl me-2 cursor-pointer"
                               onClick={handleShowHandler}
                           />
-                          <span>{user ? user.username : "Account"}</span>
+                          <span>{user ? user?.username : "Account"}</span>
                           {isShow && (
                               <div className="absolute top-[38px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
                                   {user ? (

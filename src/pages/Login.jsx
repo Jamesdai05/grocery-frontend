@@ -2,7 +2,7 @@ import { useState } from "react";
 import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import { useNavigate } from "react-router-dom";
 // import { useMutation } from "@tanstack/react-query";
 // import { loginUser } from "../dataFetch.js";
@@ -29,7 +29,8 @@ const Login = () => {
         });
     };
 
-    const {login, isPending}=useLogin();
+    const {mutate:login, isPending}=useLogin();
+    // console.log(useLogin());
 
     // const login=mutate;
 
@@ -53,7 +54,11 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     // console.log(inputData);
-        login(inputData);// call the api
+        login(inputData,{
+            onSuccess: () => {
+                navigate("/");
+            }
+        });// call the api
     };
 
     if (isPending) {

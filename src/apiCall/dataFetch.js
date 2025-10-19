@@ -27,9 +27,15 @@ export const userRegistration=async(userData)=>{
 }
 
 export const fetchCurrentUser=async()=>{
-    const response = await apiClient.get("/users/current");
-    // console.log(response.data);
-    return response.data.user
+    try {
+        const res = await apiClient.get("/users/current");
+    if (res.status === 200) {
+        return res.data; // user object
+    }
+        return null; // no user logged in
+    } catch (error) {
+        return null; // handle network error gracefully
+  }
 }
 
 export const logOutUser=async()=>{

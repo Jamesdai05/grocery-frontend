@@ -49,9 +49,9 @@ export const useLogin=()=>{
     return useMutation({
         mutationKey:["loginUser"],
         mutationFn:loginUser,
-        onSuccess:async()=>{
+        onSuccess:(data)=>{
             // Refetch current user after login
-            await queryClient.invalidateQueries(["currentUser"]);
+            queryClient.invalidateQueries(["currentUser"],data);
             toast.success("Login successful!");
         },
         onError:(err)=>{
