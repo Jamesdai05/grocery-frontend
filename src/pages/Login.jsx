@@ -2,98 +2,110 @@ import { useState } from "react";
 import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import {toast} from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../dataFetch.js";
+import Loader from "../components/Loader.jsx";
+
 
 const Login = () => {
-  const [isPasswordShow,setIsPasswordShow]=useState(false);
-  const [inputData,setInputData]=useState({
-    email:"",
-    password:"",
-  })
+    const [isPasswordShow,setIsPasswordShow]=useState(false);
+    const [inputData,setInputData]=useState({
+        email:"",
+        password:"",
+    })
 
-  const navigate=useNavigate()
+    const navigate=useNavigate()
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputData((prev) => {
+            return {
+            ...prev,
+            [name]: value,
+            };
+        });
+    };
+
+    const {
+        mutate:login,
+        isPending,
+    } = useMutation({
+        mutationKey: ["User"],
+        mutationFn: loginUser,
+        onSuccess: (data) => {
+            console.log("Login successfully",data);
+            toast.success("Login Successful");
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            navigate("/");
+        },
+        onError:(error)=>{
+            toast.error(error?.response?.data?.message || error.message);
+        }
     });
-  };
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
     // console.log(inputData);
-    try {
-      const response = await axios.post("/api/users/login", inputData, {
-        withCredentials: true,
-      });
-      // console.log(response.data);
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
+        login(inputData);// call the api
+    };
 
-      toast.success("Login successful" );
-      navigate("/");
-    } catch (err) {
-      console.log(err.response.data.message);
-      toast.error(err.response.data.message);
+    if (isPending) {
+        return <Loader />;
     }
-  };
 
-  return (
-    <div className="flex p-4 md:pt-24">
-      <div className="w-full max-w-sm bg-white m-auto flex items-center flex-col p-4">
-        <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
-          <img src={photo} alt="user" className="w-full" />
+    return (
+        <div className="flex p-4 md:pt-24">
+            <div className="w-full max-w-sm bg-white m-auto flex items-center flex-col p-4">
+            <div className="text-center w-20 overflow-hidden rounded-full drop-shadow-md">
+                <img src={photo} alt="user" className="w-full" />
+            </div>
+            <form className="w-full py-3" onSubmit={handleSubmit}>
+                <label htmlFor="email">Email</label>
+                <input
+                type="email"
+                placeholder="enter your email"
+                id="email"
+                className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
+                name="email"
+                value={inputData.email}
+                onChange={handleChange}
+                />
+                <label htmlFor="password">Password</label>
+                <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
+                <input
+                    type={isPasswordShow ? "text" : "password"}
+                    placeholder="enter your password"
+                    id="password"
+                    className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
+                    name="password"
+                    value={inputData.password}
+                    onChange={handleChange}
+                />
+                <span
+                    onClick={() => setIsPasswordShow((prev) => !prev)}
+                    className="bg-slate-300 px-2 py-2 rounded-r-md"
+                >
+                    {!isPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
+                </span>
+                </div>
+                <button className="btn w-full bg-blue-500 mt-6 text-2xl text-white p-1 rounded">
+                Log In
+                </button>
+                <p className="py-4 px-2">
+                Don't have an account?
+                <Link
+                    to="/signup"
+                    style={{ textDecoration: "underline" }}
+                    className="hover:text-blue-400"
+                >
+                    Sign Up
+                </Link>
+                </p>
+            </form>
+            </div>
         </div>
-        <form className="w-full py-3" onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            placeholder="enter your email"
-            id="email"
-            className="w-full bg-slate-300 rounded-md p-1 my-1 py-1 px-2 outline-0 focus-within:outline focus-within:outline-blue-700 transition-colors"
-            name="email"
-            value={inputData.email}
-            onChange={handleChange}
-          />
-          <label htmlFor="password">Password</label>
-          <div className="flex items-center bg-slate-300 rounded-md focus-within:outline focus-within:outline-blue-700 transition-colors">
-            <input
-              type={isPasswordShow ? "text" : "password"}
-              placeholder="enter your password"
-              id="password"
-              className="w-full my-1 px-2 py-1 bg-slate-300 focus:outline-none rounded-l-md"
-              name="password"
-              value={inputData.password}
-              onChange={handleChange}
-            />
-            <span
-              onClick={() => setIsPasswordShow((prev) => !prev)}
-              className="bg-slate-300 px-2 py-2 rounded-r-md"
-            >
-              {!isPasswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
-            </span>
-          </div>
-          <button className="btn w-full bg-blue-500 mt-6 text-2xl text-white p-1 rounded">
-            Log In
-          </button>
-          <p className="py-4 px-2">
-            Don't have an account?
-            <Link
-              to="/signup"
-              style={{ textDecoration: "underline" }}
-              className="hover:text-blue-400"
-            >
-              Sign Up
-            </Link>
-          </p>
-        </form>
-      </div>
-    </div>
-  );
+    );
 };
 export default Login;

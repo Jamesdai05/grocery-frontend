@@ -3,6 +3,9 @@ import "./header.css";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
+import { useCurrentUser, useLogOut } from "../../hooks/useAuth.js";
+import {useNavigate} from "react-router-dom";
+
 
 
 
@@ -13,6 +16,18 @@ const Header = () => {
   const handleShowHandler=()=>setIsShow(prev=>!prev)
 
   const containerRef=useRef(null)
+
+  const {data:user,isLoading}=useCurrentUser()
+
+  const {mutate:logOut,isLoading:logOutLoading}=useLogOut()
+
+  const navigate=useNavigate();
+
+  const handleLogOut=()=>{
+    logOut();
+    setIsShow(false);
+    navigate("/");
+  }
 
   useEffect(()=>{
     const handleClickOutside=(e)=>{
@@ -49,45 +64,66 @@ const Header = () => {
                   </div>
               </Link>
               <div className="form ms-6 hidden md:flex">
-                <input type="text" placeholder="Enter the product" className="search"/>
-                <button className="btn-search">Search</button>
+                  <input
+                      type="text"
+                      placeholder="Enter the product"
+                      className="search"
+                  />
+                  <button className="btn-search">Search</button>
               </div>
-              <div className="flex justify-between gap-4 md:gap-7">
-                  <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
-                      <li>
-                          <Link to="/">Home</Link>
-                      </li>
-                      <li>
-                          <Link to="/about">About</Link>
-                      </li>
-                  </nav>
-                  <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative cursor-pointer">
+              <div className="flex justify-between items-center gap-4 md:gap-7">
+                    <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/about">About</Link>
+                        </li>
+                    </nav>
+                    <div className="text-2xl flex gap-x-6 text-slate-700 p-x-4 relative cursor-pointer">
                         <Link to="/cart">
                             <FaShoppingCart className="me-2" />
                             <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
-                            <p>0</p>
+                                <p>0</p>
                             </div>
                         </Link>
-                  </div>
-                  <button className="user relative" ref={containerRef}>
-                      <FaRegUserCircle
-                          className="text-3xl me-2 cursor-pointer"
-                          onClick={handleShowHandler}
-                      />
-                      {isShow && (
-                          <div className="absolute top-[38px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
-                              <Link to="/new" className="dropdown-link">
-                                  New Product
-                              </Link>
-                              <Link to="/login" className="dropdown-link">
-                                  Log In
-                              </Link>
-                              <Link to="/profile" className="dropdown-link">
-                                  User Profile
-                              </Link>
-                          </div>
-                      )}
-                  </button>
+                    </div>
+                    <div className="user relative">
+                        <button className="user-btn" ref={containerRef}>
+                            <FaRegUserCircle
+                                className="text-3xl me-2 cursor-pointer"
+                                onClick={handleShowHandler}
+                            />
+                            <span>{user ? user.username : "Account"}</span>
+                            {isShow && (
+                                <div className="absolute top-[38px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">{
+                                    user ? (
+                                        <>
+                                            <Link to="/new" className="dropdown-link">
+                                                New Product
+                                            </Link>
+                                            <Link to="/profile" className="dropdown-link">
+                                                User Profile
+                                            </Link>
+                                            <button onClick={handleLogOut} className="dropdown-link">
+                                                Log Out
+                                            </button>
+                                        </>
+                                        ) : (
+                                        <>
+                                            <Link to="/login" className="dropdown-link">
+                                                Log In
+                                            </Link>
+                                            <Link to="/profile" className="dropdown-link">
+                                                User Profile
+                                            </Link>
+                                        </>
+                                        )
+                                    }
+                                </div>
+                            )}
+                        </button>
+                    </div>
               </div>
           </div>
       </header>

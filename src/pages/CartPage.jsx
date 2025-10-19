@@ -68,9 +68,7 @@ const CartPage = () => {
                                         value={item.qty}
                                         className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                     >
-                                        {[
-                                            ...Array(3).keys(),
-                                        ].map((e) => (
+                                        {[...Array(3).keys()].map((e) => (
                                             <option key={e + 1} value={e + 1}>
                                                 {e + 1}
                                             </option>
@@ -79,7 +77,12 @@ const CartPage = () => {
                                 </div>
                                 <div className="sm:w-2/12 mx-auto flex justify-center w-full">
                                     <button className="text-center bg-red-500 hover:bg-red-600 text-white p-1 rounded">
-                                        <MdDeleteForever style={{height:"30",width:"3em"}}/>
+                                        <MdDeleteForever
+                                            style={{
+                                                height: "30",
+                                                width: "3em",
+                                            }}
+                                        />
                                     </button>
                                 </div>
                             </div>
@@ -90,8 +93,10 @@ const CartPage = () => {
             <div className="md:w-4/12 w-full">
                 <div className="total-price p-4 border-2 border-gray-300 rounded">
                     <h2 className="text-2xl font-bold mb-4">
-                        Subtotal price (total) Items
-                        ${cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
+                        Subtotal price (total) Items $
+                        {cartItems
+                            .reduce((acc, item) => acc + item.price, 0)
+                            .toFixed(2)}
                     </h2>
                     <button className="checkout-btn">
                         Proceed to Checkout

@@ -13,7 +13,7 @@ const Home = () => {
       const fetchData=async()=>{
         try{
           const response=await axios.get("/api/products");
-          console.log(response.data);
+        //   console.log(response.data);
           setProducts(response.data.products)
         }catch(e){
           console.log("Fetched data failed:",e)

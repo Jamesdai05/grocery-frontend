@@ -132,3 +132,7 @@ h2 {
 .form-input2{
     @apply border-1 border-gray-400 p-2 w-full rounded;
 }
+
+.user-btn{
+    @apply flex flex-col items-center cursor-pointer gap-0.5;
+}
