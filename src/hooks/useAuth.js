@@ -1,6 +1,6 @@
 import { useQuery,useMutation,useQueryClient } from "@tanstack/react-query";
 
-import { userRegistration,fetchCurrentUser, logOutUser,loginUser } from "../apiCall/dataFetch.js";
+import { userRegistration,fetchCurrentUser, logOutUser,loginUser,fetchUserProfile, updateUserProfile } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 
 export const useCurrentUser=()=>{
@@ -58,4 +58,31 @@ export const useLogin=()=>{
             toast.error(err?.response?.data?.message || err.message)
         }
     });
+}
+
+export const useUserProfile=()=>{
+    return useQuery({
+        queryKey:["profile"],
+        queryFn:fetchUserProfile,
+        // enabled:!!userId,
+        staleTime:5*60*1000,
+        retry:1,
+    })
+}
+
+export const useUpdateUserProfile=()=>{
+    const queryClient=useQueryClient();
+
+    return useMutation({
+        mutationKey:["updateUser"],
+        mutationFn:updateUserProfile,
+        onSuccess:(data)=>{
+            queryClient.setQueryData(["currentUser"],data);
+            queryClient.invalidateQueries(["currentUser"]);
+            toast.success("Update user successfully!");
+        },
+        onError:(err)=>{
+            toast.error(err?.response?.data?.message || err.message);
+        }
+    })
 }

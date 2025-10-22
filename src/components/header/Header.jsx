@@ -5,6 +5,7 @@ import { FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import { useCurrentUser, useLogOut } from "../../hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
+import { useCart } from "../../hooks/useCart.js";
 
 
 
@@ -20,6 +21,8 @@ const Header = () => {
   const {data:user,isLoading}=useCurrentUser()
 
   const {mutate:logOut,isLoading:logOutLoading}=useLogOut()
+
+  const { cartItemsCount } = useCart()
 
   const navigate=useNavigate();
 
@@ -81,7 +84,7 @@ const Header = () => {
                       <Link to="/cart">
                           <FaShoppingCart className="me-2" />
                           <div className="text-xs bg-red-500 w-[16px] h-[16px] rounded-full text-white absolute p-1 flex justify-center items-center top-[-5px] left-[16px]">
-                              <p>0</p>
+                              <p>{cartItemsCount}</p>
                           </div>
                       </Link>
                   </div>
@@ -96,12 +99,12 @@ const Header = () => {
                               <div className="absolute top-[38px] right-0 text-sm p-2 shadow-2xl bg-slate-100 dropdown drop-shadow-md tex-md">
                                   {user ? (
                                     <>
-                                        <Link
-                                            to="/new"
+                                        {user.isAdmin && (<Link
+                                            to="admin/new"
                                             className="dropdown-link"
                                         >
                                             New Product
-                                        </Link>
+                                        </Link>)}
                                         <Link
                                             to="/profile"
                                             className="dropdown-link"

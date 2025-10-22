@@ -42,3 +42,15 @@ export const logOutUser=async()=>{
     const response = await apiClient.post("/users/logout");
     return response.data
 }
+
+export const fetchUserProfile=async()=>{
+    const response=await apiClient.get("/users/profile");
+    console.log(response.data);
+    return response.data;
+}
+
+export const updateUserProfile=async(data)=>{
+    const response=await apiClient.put("/users/profile",data);
+    console.log(response.data)
+    return response.data
+}

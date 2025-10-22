@@ -68,11 +68,11 @@ h2 {
 }
 
 .content2{
-  @apply w-full mx-auto flex flex-col md:flex-row justify-center items-center mt-4 bg-gray-100 sm:overflow-x-hidden;
+  @apply w-full mx-auto flex flex-col md:flex-row justify-evenly items-center mt-4 bg-gray-100 sm:overflow-x-hidden;
 }
 
 .product-card{
-  @apply flex flex-col md:flex-row gap-4 border border-blue-50 rounded bg-white shadow-md;
+  @apply flex flex-col md:flex-row gap-4 border border-blue-50 rounded bg-white shadow-md flex-grow-1;
 }
 
 .product-img{
@@ -93,6 +93,10 @@ h2 {
 
 .item{
   @apply flex justify-between w-[80%] mx-auto;
+}
+
+.review-form{
+    @apply grid grid-cols-1 md:grid-cols-12 w-full mx-auto gap-4 mt-4 flex-1
 }
 
 

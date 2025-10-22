@@ -10,7 +10,7 @@ import NewProduct from './pages/NewProduct.jsx';
 import SignUp from './pages/SignUp.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
 import Profile from './pages/Profile.jsx';
-import About from './pages/About.jsx';
+import About from './pages/OrderPage.jsx';
 import CartPage from './pages/CartPage.jsx';
 import ShippingInfo from './pages/ShippingInfo.jsx';
 import PaymentPage from './pages/PaymentPage.jsx';
@@ -18,6 +18,9 @@ import PlaceOrder from './pages/PlaceOrder.jsx';
 import PrivateRoute from './components/PrivateRoute';
 // import Login2 from './pages/Login2.jsx';
 import AdminRoute from './components/AdminRoute';
+import OrderPage from './pages/OrderPage.jsx';
+import ProductEdit from './pages/ProductEdit.jsx';
+import UserEdit from './pages/UserEdit.jsx';
 
 
 
@@ -40,8 +43,12 @@ const router = createBrowserRouter(
                 <Route path="/payment" element={<PaymentPage />} />
             </Route>
 
-            <Route path="" element={<AdminRoute />}>
-                <Route path="/new" element={<NewProduct />} />
+            <Route path="/" element={<AdminRoute />}>
+                <Route path="/admin/new" element={<NewProduct />} />
+                <Route path="/admin/orders" element={<OrderPage />} />
+                <Route path="/users/:id/edit" element={<UserEdit />} />
+                <Route path="/products/:id/edit" element={<ProductEdit />} />
+                <Route path="/admin/new" element={<NewProduct/>}/>
             </Route>
         </Route>
     )
