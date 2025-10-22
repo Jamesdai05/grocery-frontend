@@ -38,7 +38,7 @@ const ProductDetails = () => {
     // below is react query method
 
     const { id: productId } = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { addToCart } = useCart();
     const [qty, setQty] = useState(1);
 
@@ -51,7 +51,6 @@ const ProductDetails = () => {
     const handleAddToCart = () => {
         if (product && qty > 0) {
             addToCart(product, qty);
-            // navigate('/cart');
         }
     };
 

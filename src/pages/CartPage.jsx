@@ -5,12 +5,12 @@ import { useCart } from "../hooks/useCart.js";
 
 const CartPage = () => {
     const navigate = useNavigate();
-    const { 
-        cartItems, 
-        removeFromCart, 
-        updateCartQuantity, 
+    const {
+        cartItems,
+        removeFromCart,
+        updateCartQuantity,
         totalPrice,
-        itemsPrice 
+        cartItemsCount,
     } = useCart();
 
     const handleCheckout = () => {
@@ -39,7 +39,7 @@ const CartPage = () => {
                         {cartItems.map((item) => (
                             <div
                                 key={item._id}
-                                className="flex flex-col sm:flex-row items-center gap-4 px-4 border-b last:border-b-0"
+                                className="flex flex-col sm:flex-row items-center gap-4 px-4 border-b py-2 last:border-b-0"
                             >
                                 <div className="sm:w-2/12 w-full">
                                     <img
@@ -62,10 +62,19 @@ const CartPage = () => {
                                 <div className="sm:w-2/12 w-full">
                                     <select
                                         value={item.qty}
-                                        onChange={(e) => updateCartQuantity(item._id, Number(e.target.value))}
+                                        onChange={(e) =>
+                                            updateCartQuantity(
+                                                item._id,
+                                                Number(e.target.value)
+                                            )
+                                        }
                                         className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                     >
-                                        {[...Array(Math.min(item.stock || 10, 10)).keys()].map((x) => (
+                                        {[
+                                            ...Array(
+                                                Math.min(item.stock || 10, 10)
+                                            ).keys(),
+                                        ].map((x) => (
                                             <option key={x + 1} value={x + 1}>
                                                 {x + 1}
                                             </option>
@@ -73,7 +82,7 @@ const CartPage = () => {
                                     </select>
                                 </div>
                                 <div className="sm:w-2/12 mx-auto flex justify-center w-full">
-                                    <button 
+                                    <button
                                         className="text-center bg-red-500 hover:bg-red-600 text-white p-1 rounded"
                                         onClick={() => removeFromCart(item._id)}
                                     >
@@ -92,11 +101,11 @@ const CartPage = () => {
             </div>
             <div className="md:w-4/12 w-full">
                 <div className="total-price p-4 border-2 border-gray-300 rounded">
-                    <h2 className="text-2xl font-bold mb-4">
-                        Subtotal ({cartItems.reduce((total, item) => total + item.qty, 0)}) Items 
-                        ${itemsPrice}
-                    </h2>
-                    <button 
+                    <h3 className="text-2xl mb-4">
+                        Subtotal ({cartItemsCount}) items
+                    </h3>
+                    <h2 className="font-bold">Total:${totalPrice}</h2>
+                    <button
                         className="checkout-btn w-full"
                         disabled={cartItems.length === 0}
                         onClick={handleCheckout}

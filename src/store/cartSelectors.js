@@ -77,11 +77,3 @@ export const selectShippingEligibility = createSelector(
         amountNeededForFreeShipping: Math.max(0, 100 - totalValue),
     })
 );
-
-// Export all selectors from cartSlice
-// export {
-//     selectCartItems,
-//     selectCartItemsCount,
-//     selectShippingAddress,
-//     selectPaymentMethod,
-// } from './cartSlice.js';
