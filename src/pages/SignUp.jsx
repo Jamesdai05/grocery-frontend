@@ -3,8 +3,7 @@ import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import {toast} from "react-toastify";
-// import { useMutation } from "@tanstack/react-query";
-// import { userRegistration } from "../dataFetch.js";
+import { useDispatch } from "react-redux";
 import {useRegister} from "../hooks/useAuth.js"
 import Loader from "../components/Loader";
 
@@ -22,7 +21,7 @@ const SignUp = () => {
     const navigate=useNavigate()
 
     const {mutate:register,isPending}=useRegister()
-
+    // const dispatch=useDispatch()
 
 
     const handleConfirmPassword=()=>setIsConfirmPasswordShow(prev=>!prev)
@@ -37,24 +36,39 @@ const SignUp = () => {
             })
     }
 
+    const formValidation=()=>{
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("passwords do not match");
+            return false;
+        }
+        if (formData.password.length < 6) {
+            toast.error("password must be at least 6 characters");
+            return false;
+        }
+        if (
+            !formData.email ||
+            !formData.username ||
+            !formData.password ||
+            !formData.confirmPassword
+        ) {
+            toast.error("All fields are required");
+            return false;
+        }
+        return true;
+    }
+
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        if(formData.password !== formData.confirmPassword){
-            return toast.error("passwords do not match")
+        if(!formValidation()){
+            return
         }
-        if(formData.password.length < 6){
-            return toast.error("password must be at least 6 characters")
-        }
-        if(!formData.email || !formData.username || !formData.password || !formData.confirmPassword){
-            return toast.error("All fields are required")
-        }
+
 
 
         register(formData,{
             onSuccess:()=>{
                 navigate("/")
-                localStorage.setItem("userInfo",JSON.stringify(formData))
             }
         });// call the api
 

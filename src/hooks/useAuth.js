@@ -21,10 +21,12 @@ export const useCurrentUser=()=>{
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
+  const dispatch=useDispatch();
   return useMutation({
     mutationFn: userRegistration,
     onSuccess: async (data) => {
       // Refetch current user after registration (auto-login)
+      dispatch(setUserInfo(data))
       await queryClient.invalidateQueries(["currentUser"]);
       toast.success("Registration successful!");
     },
@@ -53,6 +55,8 @@ export const useLogOut=()=>{
     })
 }
 
+// for the redux it will only handle the state management and localstorage.
+// for tanstack query it will handle the data from api call.
 export const useLogin=()=>{
     const queryClient=useQueryClient();
     const dispatch = useDispatch();
@@ -63,7 +67,6 @@ export const useLogin=()=>{
             // Refetch current user after login
             dispatch(setUserInfo(data));
             queryClient.setQueryData(["currentUser"],data);
-            // localStorage.setItem("userInfo",JSON.stringify(data));
             toast.success("Login successful!");
         },
         onError:(err)=>{

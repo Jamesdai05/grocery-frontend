@@ -6,8 +6,6 @@ import { Link, useNavigate,useLocation} from "react-router-dom";
 
 import Loader from "../components/Loader.jsx";
 import { useLogin } from "../hooks/useAuth.js";
-
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { resetCart } from "../store/cartSlice.js";
 
@@ -50,6 +48,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     // console.log(inputData);
+        if(!inputData.email || !inputData.password) return;
         login(inputData,{
             onSuccess: () => {
                 dispatch(resetCart());

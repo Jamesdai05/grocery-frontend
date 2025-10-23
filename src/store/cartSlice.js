@@ -79,6 +79,7 @@ const cartSlice = createSlice({
             state.cartItems = [];
             state.shippingAddress = {};
             state.paymentMethod = '';
+            return updateCart(state);
         },
         loadCartFromStorage:(state,action)=>{
             return {...state,...action.payload}
