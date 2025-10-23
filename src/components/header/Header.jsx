@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { useCurrentUser, useLogOut } from "../../hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
 import { useCart } from "../../hooks/useCart.js";
+import { resetCart } from "../../store/cartSlice.js";
+import { useDispatch } from "react-redux";
 
 
 
@@ -13,6 +15,7 @@ import { useCart } from "../../hooks/useCart.js";
 const Header = () => {
 
   const [isShow,setIsShow]=useState(false)
+  const dispatch=useDispatch();
 
   const handleShowHandler=()=>setIsShow(prev=>!prev)
 
@@ -20,7 +23,8 @@ const Header = () => {
 
   const {data:user,isLoading}=useCurrentUser()
 
-  const {mutate:logOut,isLoading:logOutLoading}=useLogOut()
+
+  const {mutate:logOut,isPending}=useLogOut()
 
   const { cartItemsCount } = useCart()
 
@@ -29,7 +33,7 @@ const Header = () => {
   const handleLogOut=()=>{
     logOut();
     setIsShow(false);
-    navigate("/");
+    navigate("/login");
   }
 
   useEffect(()=>{
@@ -114,14 +118,16 @@ const Header = () => {
                                         <button
                                             onClick={handleLogOut}
                                             className="dropdown-link"
+                                            disabled={isPending}
                                         >
-                                            Log Out
+                                            {isPending ? "Logging Out..." : "Log Out"}
                                         </button>
                                     </>
                                   ) : (
                                     <Link
                                         to="/login"
                                         className="dropdown-link"
+                                        disabled={isPending}
                                     >
                                         Log In
                                     </Link>

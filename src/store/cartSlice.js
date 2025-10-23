@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import {updateCart} from "/utils/cartUtils.js";
 
 // Initial state
-const initialState = {
-    cartItems: [],
-    shippingAddress: {},
-    paymentMethod: '',
-};
+const initialState = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : {
+      cartItems: [],
+      shippingAddress: {},
+      paymentMethod: '',
+    };
 
 // Create the cart slice
 const cartSlice = createSlice({
@@ -26,17 +28,8 @@ const cartSlice = createSlice({
                 state.cartItems.push(newItem);
             }
 
-            // Calculate and update prices
-            // const prices = calculatePrices(state.cartItems);
-            // Object.assign(state, prices);
-
-            // // Save to localStorage
-            // localStorage.setItem('cart', JSON.stringify(state));
 
             return updateCart(state)
-
-            // Show toast notification
-            // toast.success(`${newItem.name} added to cart!`);
         },
 
         updateCartQty:(state,action)=>{
@@ -63,6 +56,7 @@ const cartSlice = createSlice({
 
         clearCart: (state) => {
             // Reset to initial state
+            console.log(state)
             state.cartItems=[]
             updateCart(state)
         },

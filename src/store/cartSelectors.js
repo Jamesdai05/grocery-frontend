@@ -34,40 +34,11 @@ export const selectCartTotalValue = createSelector(
 );
 
 // Selector for specific item by ID
-export const selectCartItemById = createSelector(
-    [selectCartItems, (state, itemId) => itemId],
-    (cartItems, itemId) => cartItems.find(item => item._id === itemId)
-);
+// export const removeCartItemById = createSelector(
+//     [selectCartItems, (state, itemId) => itemId],
+//     (cartItems, itemId) => cartItems.filter(item => item._id !== itemId)
+// );
 
-// Selector for checking if item exists in cart
-export const selectIsItemInCart = createSelector(
-    [selectCartItems, (state, itemId) => itemId],
-    (cartItems, itemId) => cartItems.some(item => item._id === itemId)
-);
-
-// Selector for cart statistics
-export const selectCartStats = createSelector(
-    [selectCartItems],
-    (cartItems) => {
-        const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
-        const totalValue = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        const averageItemPrice = totalItems > 0 ? totalValue / totalItems : 0;
-        const uniqueItems = cartItems.length;
-
-        return {
-            totalItems,
-            totalValue,
-            averageItemPrice: Number(averageItemPrice.toFixed(2)),
-            uniqueItems,
-        };
-    }
-);
-
-// Selector for items that are low in stock
-export const selectLowStockItems = createSelector(
-    [selectCartItems],
-    (cartItems) => cartItems.filter(item => item.stock && item.stock <= 5)
-);
 
 // Selector for cart with shipping eligibility
 export const selectShippingEligibility = createSelector(

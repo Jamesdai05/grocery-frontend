@@ -4,6 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { useCart } from "../hooks/useCart.js";
 
 const CartPage = () => {
+    const userinfo=localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
     const navigate = useNavigate();
     const {
         cartItems,
@@ -13,7 +14,16 @@ const CartPage = () => {
         cartItemsCount,
     } = useCart();
 
+    const handleRemoveFromCart=(id)=>{
+        removeFromCart(id);
+    }
+
     const handleCheckout = () => {
+        if(cartItems.length === 0) return;
+        if(userinfo){
+            navigate('/shipping');
+            return;
+        }
         navigate('/login?redirect=shipping');
     };
 
@@ -38,13 +48,13 @@ const CartPage = () => {
                     <div className="rounded-lg overflow-hidden shadow">
                         {cartItems.map((item) => (
                             <div
-                                key={item._id}
+                                key={`cart-item-${item._id}`}
                                 className="flex flex-col sm:flex-row items-center gap-4 px-4 border-b py-2 last:border-b-0"
                             >
                                 <div className="sm:w-2/12 w-full">
                                     <img
                                         src={item.image}
-                                        alt="product"
+                                        alt={item.name}
                                         className="w-[150px] object-cover rounded"
                                     />
                                 </div>
@@ -75,7 +85,10 @@ const CartPage = () => {
                                                 Math.min(item.stock || 10, 10)
                                             ).keys(),
                                         ].map((x) => (
-                                            <option key={x + 1} value={x + 1}>
+                                            <option
+                                                key={`qty-${item._id}-${x + 1}`}  //why the key is needed with qty-item-x+1? as in this way react can identify each option uniquely when rendering the list, preventing potential issues with rendering and performance.
+                                                value={x + 1}
+                                            >
                                                 {x + 1}
                                             </option>
                                         ))}
@@ -84,7 +97,9 @@ const CartPage = () => {
                                 <div className="sm:w-2/12 mx-auto flex justify-center w-full">
                                     <button
                                         className="text-center bg-red-500 hover:bg-red-600 text-white p-1 rounded"
-                                        onClick={() => removeFromCart(item._id)}
+                                        onClick={() =>
+                                            handleRemoveFromCart(item._id)
+                                        }
                                     >
                                         <MdDeleteForever
                                             style={{

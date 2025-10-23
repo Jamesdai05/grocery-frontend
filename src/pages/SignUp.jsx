@@ -49,23 +49,12 @@ const SignUp = () => {
         if(!formData.email || !formData.username || !formData.password || !formData.confirmPassword){
             return toast.error("All fields are required")
         }
-        // try{
-        //     // const response = await axios.post("/api/users/register", formData);
-        //     const response=await axios.post("/api/users/register",formData,{
-        //         withCredentials:true,
-        //     })
-        //     // console.log(response.data)
-        //     localStorage.setItem("userInfo", JSON.stringify(response.data));
-        //     navigate("/")
-        //     toast.success("Registration successful.")
-        // }catch(err){
-        //     console.log(err.response.data.message)
-        //     toast.error(err.response.data.message)
-        // }
+
 
         register(formData,{
             onSuccess:()=>{
                 navigate("/")
+                localStorage.setItem("userInfo",JSON.stringify(formData))
             }
         });// call the api
 

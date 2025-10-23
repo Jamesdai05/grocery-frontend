@@ -15,6 +15,7 @@ import {
 import {
     selectCartPrices,
 } from "../store/cartSelectors.js";
+import { useEffect } from 'react';
 
 // Custom hook for cart operations
 export const useCart = () => {
@@ -26,6 +27,21 @@ export const useCart = () => {
     const cartPrices = useSelector(selectCartPrices);
     const shippingAddress = useSelector(selectShippingAddress);
     const paymentMethod = useSelector(selectPaymentMethod);
+
+
+
+    // --- Persist cart to localStorage whenever cart changes ---
+    useEffect(() => {
+    if (shippingAddress) {
+        localStorage.setItem("shippingAddress", JSON.stringify(shippingAddress));
+    }
+  }, [shippingAddress]);
+
+    useEffect(() => {
+        if (paymentMethod) {
+            localStorage.setItem("paymentMethod", JSON.stringify(paymentMethod));
+        }
+    }, [paymentMethod]);
 
     // Action creators
     const addToCart = (product, qty = 1) => {
@@ -52,6 +68,8 @@ export const useCart = () => {
         }
         dispatch(updateCartQtyAction({ id, qty }));
     };
+
+
 
     const clearCart = () => {
         dispatch(clearCartAction());
