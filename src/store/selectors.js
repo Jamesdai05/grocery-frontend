@@ -35,22 +35,22 @@ export const selectIsItemInCart = createSelector(
 );
 
 // Selector for cart statistics
-export const selectCartStats = createSelector(
-    [selectCartItems],
-    (cartItems) => {
-        const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
-        const totalValue = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        const averageItemPrice = totalItems > 0 ? totalValue / totalItems : 0;
-        const uniqueItems = cartItems.length;
+// export const selectCartStats = createSelector(
+//     [selectCartItems],
+//     (cartItems) => {
+//         const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
+//         const totalValue = cartItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+//         const averageItemPrice = totalItems > 0 ? totalValue / totalItems : 0;
+//         const uniqueItems = cartItems.length;
 
-        return {
-            totalItems,
-            totalValue,
-            averageItemPrice: Number(averageItemPrice.toFixed(2)),
-            uniqueItems,
-        };
-    }
-);
+//         return {
+//             totalItems,
+//             totalValue,
+//             averageItemPrice: Number(averageItemPrice.toFixed(2)),
+//             uniqueItems,
+//         };
+//     }
+// );
 
 // Selector for items that are low in stock
 export const selectLowStockItems = createSelector(
@@ -59,13 +59,13 @@ export const selectLowStockItems = createSelector(
 );
 
 // Selector for cart with shipping eligibility
-export const selectShippingEligibility = createSelector(
-    [selectCartTotalValue],
-    (totalValue) => ({
-        isEligibleForFreeShipping: totalValue >= 100,
-        amountNeededForFreeShipping: Math.max(0, 100 - totalValue),
-    })
-);
+// export const selectShippingEligibility = createSelector(
+//     [selectCartTotalValue],
+//     (totalValue) => ({
+//         isEligibleForFreeShipping: totalValue >= 100,
+//         amountNeededForFreeShipping: Math.max(0, 100 - totalValue),
+//     })
+// );
 
 // Export all selectors from cartSlice
 export {

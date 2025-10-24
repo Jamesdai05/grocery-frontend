@@ -16,11 +16,11 @@ export const updateCart=(state)=>{
     // caculate the totalPrice of items.
     state.itemsPrice=numberFormating(state.cartItems.reduce((acc,item)=>acc+item.price * item.qty,0))
 
-    state.itemShippingCost=numberFormating(state.cartItems.length === 0 ? 0 : state.itemsPrice>100 ? 0 :  10 );
+    state.shippingPrice=numberFormating(state.cartItems.length === 0 ? 0 : state.itemsPrice>100 ? 0 :  10 );
 
     state.taxPrice=numberFormating(Number(state.itemsPrice) * 0.1)
 
-    state.totalPrice=numberFormating(Number(state.itemsPrice) + Number(state.itemShippingCost) + Number(state.taxPrice))
+    state.totalPrice=numberFormating(Number(state.itemsPrice) + Number(state.shippingPrice) + Number(state.taxPrice))
 
     localStorage.setItem("cart",JSON.stringify(state))
     return state
