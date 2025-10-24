@@ -49,7 +49,7 @@ const CartPage = () => {
                     <div className="rounded-lg overflow-hidden shadow">
                         {cartItems.map((item) => (
                             <div
-                                key={`cart-item-${item._id}`}
+                                key={`cart-item-${item._id}-${item.qty}`}
                                 className="flex flex-col sm:flex-row items-center gap-4 px-4 border-b py-2 last:border-b-0"
                             >
                                 <div className="sm:w-2/12 w-full">

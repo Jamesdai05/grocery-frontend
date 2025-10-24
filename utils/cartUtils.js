@@ -5,11 +5,11 @@ export const numberFormating=(num)=>{
 }
 
 // test case
-const test={
-    cartItems:[{"name":"Iphone","price":599.99,"qty":1},{"name":"Samsung","price":499.99,"qty":2}],
-    taxPrice:undefined,
-    itemShippingCost:"",
-}
+// const test={
+//     cartItems:[{"name":"Iphone","price":599.99,"qty":1},{"name":"Samsung","price":499.99,"qty":2}],
+//     taxPrice:undefined,
+//     itemShippingCost:"",
+// }
 
 
 export const updateCart=(state)=>{
@@ -26,5 +26,5 @@ export const updateCart=(state)=>{
     return state
 }
 
-console.log(updateCart(test))
+// console.log(updateCart(test))
 

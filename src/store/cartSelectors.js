@@ -7,6 +7,7 @@ import {
 // basic cart state
 export const selectCart=(state)=>state.cart;
 
+
 // Selector for cart Prices
 export const selectCartPrices = createSelector(
     [selectCart],
