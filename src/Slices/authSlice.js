@@ -1,9 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const getUserInfoFromStorage =()=>{
-    const userInfo = localStorage.getItem("userInfo");
-    return userInfo ? JSON.parse(userInfo) : null;
+// let userInfromStorage;
+const getUserInfoFromStorage=()=>{
+    try{
+        const userInfoFromStorage=localStorage.getItem("userInfo");
+        return userInfoFromStorage ? JSON.parse(userInfoFromStorage) : null;
+    }catch(err){
+        console.error("Error parsing userInfo from localStorage:",err);
+        localStorage.removeItem("userInfo");
+        return null;
+    }
 }
+
 
 const initialState = {
     userInfo: getUserInfoFromStorage(),
@@ -19,7 +27,7 @@ const authSlice = createSlice({
         },
         logOut:(state)=>{
             state.userInfo=null;
-            localStorage.removeItem("userInfo");
+            localStorage.clear();
         }
     }
 });

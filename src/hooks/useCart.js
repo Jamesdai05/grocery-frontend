@@ -10,7 +10,7 @@ import {
     selectCartItemsCount,
     selectShippingAddress,
     selectPaymentMethod,
-} from '../store/cartSlice.js';
+} from '../Slices/cartSlice.js';
 
 import {
     selectCartPrices,

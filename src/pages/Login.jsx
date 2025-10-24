@@ -1,40 +1,37 @@
 import { useState } from "react";
 import photo from "../assets/login-animation.gif";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { Link, useNavigate,useLocation} from "react-router-dom";
-
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import Loader from "../components/Loader.jsx";
 import { useLogin } from "../hooks/useAuth.js";
 import { useDispatch } from "react-redux";
-import { resetCart } from "../store/cartSlice.js";
-
+import { resetCart } from "../Slices/cartSlice.js";
 
 const Login = () => {
-    const [isPasswordShow,setIsPasswordShow]=useState(false);
-    const [inputData,setInputData]=useState({
-        email:"",
-        password:"",
-    })
+    const [isPasswordShow, setIsPasswordShow] = useState(false);
+    const [inputData, setInputData] = useState({
+        email: "",
+        password: "",
+    });
 
-    const { mutate: login, isPending, } = useLogin();
+    const { mutate: login, isPending } = useLogin();
 
-    const {search} = useLocation();
+    const { search } = useLocation();
 
     const dispatch = useDispatch();
 
-    const navigate=useNavigate()
+    const navigate = useNavigate();
     // to let user redirect to the page he wanted to go before login
-    const redirect =
-        new URLSearchParams(search).get("redirect") || "/";
+    const redirect = new URLSearchParams(search).get("redirect") || "/";
     // navigate(redirect);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputData((prev) => {
             return {
-            ...prev,
-            [name]: value,
+                ...prev,
+                [name]: value,
             };
         });
     };
@@ -43,18 +40,16 @@ const Login = () => {
         setIsPasswordShow((prev) => !prev);
     };
 
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
-    // console.log(inputData);
-        if(!inputData.email || !inputData.password) return;
-        login(inputData,{
+        // console.log(inputData);
+        if (!inputData.email || !inputData.password) return;
+        login(inputData, {
             onSuccess: () => {
                 dispatch(resetCart());
                 navigate(redirect); // Redirect to the intended page after login
-            }
-        });// call the api
+            },
+        }); // call the api
     };
 
     if (isPending) {

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import {
     selectCartItems,
-} from './cartSlice.js';
+} from '../Slices/cartSlice.js';
 
 // basic cart state
 export const selectCart=(state)=>state.cart;

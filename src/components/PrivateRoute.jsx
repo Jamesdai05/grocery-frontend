@@ -1,15 +1,11 @@
 import { Outlet,Navigate } from "react-router-dom";
-import { useCurrentUser } from "../hooks/useAuth.js";
+import { useSelector } from "react-redux";
 
 
 const PrivateRoute = () => {
-    const {data:user,isLoading}=useCurrentUser();
+    const userInfo=useSelector(state=>state.auth);
 
-    if(isLoading){
-        return <div>Loading...</div>
-    }
-
-    if(!user || user === null){
+    if(!userInfo || userInfo === null){
         return <Navigate to="/login" replace={true} />
     }
   return <Outlet />;

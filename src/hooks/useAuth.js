@@ -1,23 +1,23 @@
 import { useQuery,useMutation,useQueryClient } from "@tanstack/react-query";
 
-import { userRegistration,fetchCurrentUser, logOutUser,loginUser,fetchUserProfile, updateUserProfile } from "../apiCall/dataFetch.js";
+import { userRegistration,logOutUser,loginUser,fetchUserProfile, updateUserProfile } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { logOut,setUserInfo} from "../store/authSlice.js";
-import { resetCart } from "../store/cartSlice.js";
+import { logOut,setUserInfo} from "../Slices/authSlice.js";
+import { resetCart } from "../Slices/cartSlice.js";
 
 
 
-export const useCurrentUser=()=>{
-    return useQuery({
-        queryKey:["currentUser"],
-        queryFn:fetchCurrentUser,
-        staleTime:5*60*1000, // 5 minutes
-        retry:0,
-        enabled:true,
-        refetchOnWindowFocus: false, // disable refetch on window focus
-    })
-}
+// export const useCurrentUser=()=>{
+//     return useQuery({
+//         queryKey:["currentUser"],
+//         queryFn:fetchCurrentUser,
+//         staleTime:5*60*1000, // 5 minutes
+//         retry:0,
+//         enabled:true,
+//         refetchOnWindowFocus: false, // disable refetch on window focus
+//     })
+// }
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
@@ -65,7 +65,8 @@ export const useLogin=()=>{
         mutationFn:loginUser,
         onSuccess:(data)=>{
             // Refetch current user after login
-            dispatch(setUserInfo(data));
+            // console.log("login data:",data);
+            dispatch(setUserInfo(data));  //handle the redux state and localstorage.
             queryClient.setQueryData(["currentUser"],data);
             toast.success("Login successful!");
         },
