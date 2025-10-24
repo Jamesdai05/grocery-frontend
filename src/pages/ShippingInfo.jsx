@@ -14,8 +14,9 @@ const ShippingInfo = () => {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log("form submitted")
+
         const form=e.target;
+        // console.log(form)
         const shippingInfo={
             address:form.address.value,
             city:form.city.value,
@@ -29,7 +30,7 @@ const ShippingInfo = () => {
     return (
         <FormContainer>
             <CheckoutComponent step1 step2/>
-            <form action="/payment" className="form-container max-w-6xl" onSumbit={handleSubmit}>
+            <form action="/payment" className="form-container max-w-6xl" onSubmit={handleSubmit}>
                 <h1 className="text-2xl font-bold my-6">Shipping Info</h1>
                 <div className="form-control2">
                     <label htmlFor="address">Address</label>
@@ -39,6 +40,7 @@ const ShippingInfo = () => {
                         id="address"
                         placeholder="Enter address"
                         className="form-input2"
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -49,6 +51,7 @@ const ShippingInfo = () => {
                         id="city"
                         placeholder="Enter city"
                         className="form-input2"
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -59,6 +62,7 @@ const ShippingInfo = () => {
                         id="postal code"
                         placeholder="Enter postal code"
                         className="form-input2"
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -69,6 +73,7 @@ const ShippingInfo = () => {
                         id="country"
                         placeholder="Enter country"
                         className="form-input2"
+                        required
                     />
                 </div>
                 <div>
