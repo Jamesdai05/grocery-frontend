@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useCurrentUser, useLogOut } from "../../hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
 import { useCart } from "../../hooks/useCart.js";
-import { resetCart } from "../../store/cartSlice.js";
+// import { resetCart } from "../../store/cartSlice.js";
 import { useDispatch } from "react-redux";
 
 

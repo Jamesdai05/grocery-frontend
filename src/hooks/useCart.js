@@ -31,17 +31,22 @@ export const useCart = () => {
 
 
     // --- Persist cart to localStorage whenever cart changes ---
-    useEffect(() => {
-    if (shippingAddress) {
-        localStorage.setItem("shippingAddress", JSON.stringify(shippingAddress));
-    }
-  }, [shippingAddress]);
-
-    useEffect(() => {
-        if (paymentMethod) {
-            localStorage.setItem("paymentMethod", JSON.stringify(paymentMethod));
+    useEffect(()=>{
+        const cartState={
+            cartItems,
+            shippingAddress,
+            paymentMethod,
         }
-    }, [paymentMethod]);
+        // only save to localStorage if there is a item.
+        if(cartItems.length >0){
+            localStorage.setItem("cart",JSON.stringify({
+                ...cartState,
+                ...cartPrices,
+            }))
+        }else{
+            localStorage.removeItem("cart");
+        }
+    },[cartItems,shippingAddress,paymentMethod,cartPrices])
 
     // Action creators
     const addToCart = (product, qty = 1) => {
