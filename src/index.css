@@ -144,3 +144,9 @@ h2 {
 .user-btn{
     @apply flex flex-col items-center cursor-pointer gap-0.5;
 }
+
+/* payment method */
+
+.radio-group{
+    @apply flex justify-start gap-4
+}

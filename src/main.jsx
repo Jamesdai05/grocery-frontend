@@ -21,6 +21,7 @@ import AdminRoute from './components/AdminRoute';
 import OrderPage from './pages/OrderPage.jsx';
 import ProductEdit from './pages/ProductEdit.jsx';
 import UserEdit from './pages/UserEdit.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 
 
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/shipping" element={<ShippingInfo />} />
                 <Route path="/payment" element={<PaymentPage />} />
+                <Route path="/order/:id" element={<OrderPage />} />
             </Route>
 
             <Route path="/" element={<AdminRoute />}>
@@ -48,8 +50,9 @@ const router = createBrowserRouter(
                 <Route path="/admin/orders" element={<OrderPage />} />
                 <Route path="/users/:id/edit" element={<UserEdit />} />
                 <Route path="/products/:id/edit" element={<ProductEdit />} />
-                <Route path="/admin/new" element={<NewProduct/>}/>
+                <Route path="/admin/new" element={<NewProduct />} />
             </Route>
+            <Route path='*' element={<NotFound/>} />
         </Route>
     )
 );

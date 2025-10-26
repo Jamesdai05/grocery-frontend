@@ -10,7 +10,7 @@ export const fetchData=async()=>{
 
 export const fetchProductById=async(id)=>{
     const response = await apiClient.get(`/products/${id}`)
-    console.log(response.data)
+    // console.log(response.data)
     return response.data
 }
 
@@ -53,4 +53,21 @@ export const updateUserProfile=async(data)=>{
     const response=await apiClient.put("/users/profile",data);
     console.log(response.data)
     return response.data
+}
+
+// order related api calls below
+export const createdOrder=async(data)=>{
+    const response=await apiClient.post("/orders",data);
+    console.log("Payload:",response.data);
+    return response.data;
+}
+
+export const fetchOrderById=async(orderId)=>{
+    const response=await apiClient.get(`/orders/${orderId}`);
+    return response.data;
+}
+
+export const fetchMyOrders=async()=>{
+    const response=await apiClient.get("/orders/mine");
+    return response.data;
 }

@@ -6,7 +6,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import Loader from "../components/Loader.jsx";
 import { useLogin } from "../hooks/useAuth.js";
 import { useDispatch } from "react-redux";
-import { resetCart } from "../Slices/cartSlice.js";
+// import { resetCart } from "../Slices/cartSlice.js";
+import { setUserInfo } from "../Slices/authSlice.js";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Login = () => {
     const [isPasswordShow, setIsPasswordShow] = useState(false);
@@ -16,6 +19,8 @@ const Login = () => {
     });
 
     const { mutate: login, isPending } = useLogin();
+
+    const {userInfo}=useSelector((state)=>state.auth)
 
     const { search } = useLocation();
 
@@ -43,14 +48,20 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(inputData);
-        if (!inputData.email || !inputData.password) return;
         login(inputData, {
-            onSuccess: () => {
-                dispatch(resetCart());
+            onSuccess: (data) => {
+                dispatch(setUserInfo(data));
                 navigate(redirect); // Redirect to the intended page after login
             },
         }); // call the api
     };
+
+    useEffect(() => {
+        if(userInfo){
+            navigate(redirect);
+        }
+    }, [userInfo, navigate, redirect]);
+
 
     if (isPending) {
         return <Loader />;

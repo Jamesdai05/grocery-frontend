@@ -3,7 +3,7 @@ import {
     addToCart as addToCartAction,
     removeFromCart as removeFromCartAction,
     updateCartQty as updateCartQtyAction,
-    clearCart as clearCartAction,
+    clearCartItems as clearCartAction,
     saveShippingAddress as saveShippingAddressAction,
     savePaymentMethod as savePaymentMethodAction,
     selectCartItems,

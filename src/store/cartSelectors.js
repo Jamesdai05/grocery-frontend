@@ -19,9 +19,6 @@ export const selectCartPrices = createSelector(
 }));
 
 
-// Advanced selectors using createSelector for memoization
-export const selectCartState = (state) => state.cart;
-
 // Memoized selector for cart total items
 export const selectCartTotalItems = createSelector(
     [selectCartItems],

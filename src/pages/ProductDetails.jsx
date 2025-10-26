@@ -15,26 +15,6 @@ const ProductDetails = () => {
 
     // below is conventional fetch method
 
-    // const [product,setProduct]=useState({})
-    // const {id:productId}=useParams()
-    // console.log(productId)
-
-    // useEffect(()=>{
-    //     const fetchProduct=async()=>{
-    //         try{
-    //             const response=await axios.get(`/api/products/${productId}`)
-    //             console.log(response.data)
-    //             setProduct(response.data)
-    //         }catch(err){
-    //             console.log(err)
-    //         }
-    //     }
-    //     fetchProduct()
-
-    // },[productId])
-
-    // console.log(product)
-
     // below is react query method
 
     const { id: productId } = useParams();
@@ -42,7 +22,7 @@ const ProductDetails = () => {
     const { addToCart } = useCart();
     const [qty, setQty] = useState(1);
 
-    console.log(productId);
+    // console.log(productId);
     const {data:product,isLoading,error}=useQuery({
         queryKey: ['product',productId],
         queryFn: ()=>fetchProductById(productId)

@@ -54,7 +54,7 @@ const cartSlice = createSlice({
             updateCart(state)
         },
 
-        clearCart: (state) => {
+        clearCartItems: (state) => {
             // Reset to initial state
             console.log(state)
             state.cartItems=[]
@@ -92,7 +92,7 @@ export const {
     addToCart,
     removeFromCart,
     updateCartQty,
-    clearCart,
+    clearCartItems,
     saveShippingAddress,
     savePaymentMethod,
     loadCartFromStorage,
