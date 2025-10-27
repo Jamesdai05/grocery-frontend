@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { createdOrder } from "../apiCall/dataFetch.js";
+import { createdOrder, createPayment, updateOrderToPaid } from "../apiCall/dataFetch.js";
 import { useDispatch } from "react-redux";
 import { clearCartItems } from "../Slices/cartSlice.js";
 import { fetchOrderById } from "../apiCall/dataFetch.js";
@@ -39,5 +39,40 @@ export const useGetOrderDetails=(orderId)=>{
     })
 }
 
+export const usePayOrder=(amount,orderId)=>{
+    return useMutation({
+        mutationKey:["payOrder",orderId],
+        mutationFn:()=>createPayment(amount,orderId),
+        onSuccess:(data)=>{
+            if(data.url){
+                window.location.href = data.url;
+            }else {
+            toast.warn("No redirect URL received.");
+            };
+        },
+        onError:(err)=>{
+            console.error("Payment initiation error",err)
+            toast.error(err?.response?.data?.message || err.message || "Failed to process payment");
+        }
+    })
+}
 
-    // Selectors
+
+export const useUpdateOrderToPaid = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ orderId, paymentResult }) => updateOrderToPaid(orderId, paymentResult),
+        onSuccess: (data, variables) => {
+            // Invalidate and refetch order details
+            queryClient.invalidateQueries({ queryKey: ["orders", variables.orderId] });
+            toast.success("Order payment updated successfully!");
+        },
+        onError: (err) => {
+            console.error("Error updating order payment:", err);
+            toast.error(err?.response?.data?.message || err.message || "Failed to update order payment");
+        }
+    });
+};
+
+// Selectors
