@@ -16,7 +16,7 @@ import ShippingInfo from './pages/ShippingInfo.jsx';
 import PaymentPage from './pages/PaymentPage.jsx';
 import PlaceOrder from './pages/PlaceOrder.jsx';
 import PrivateRoute from './components/PrivateRoute';
-// import Login2 from './pages/Login2.jsx';
+import Checkout from './pages/Checkout.jsx';
 import AdminRoute from './components/AdminRoute';
 import OrderPage from './pages/OrderPage.jsx';
 import ProductEdit from './pages/ProductEdit.jsx';
@@ -42,6 +42,7 @@ const router = createBrowserRouter(
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/shipping" element={<ShippingInfo />} />
                 <Route path="/payment" element={<PaymentPage />} />
+                <Route path='/checkout' element={<Checkout />}/>
                 <Route path="/order/:id" element={<OrderPage />} />
             </Route>
 

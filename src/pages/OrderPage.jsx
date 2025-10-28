@@ -1,10 +1,9 @@
 import { numberFormating } from "../../utils/cartUtils.js";
-import { Link,useParams } from "react-router-dom";
-import CheckoutComponent from "../components/CheckoutComponent.jsx";
+import { Link,useNavigate,useParams } from "react-router-dom";
 import Message from "../components/Message.jsx";
 import { useGetOrderDetails } from '../hooks/useOrder.js';
 import Loader from "../components/Loader.jsx";
-import { use } from "react";
+
 
 
 const OrderPage = () => {
@@ -13,7 +12,7 @@ const OrderPage = () => {
 
     // console.log(orderId);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const {data:orderData,isLoading,error}=useGetOrderDetails(orderId)
 
     if(isLoading){
@@ -41,6 +40,7 @@ const OrderPage = () => {
 
     const handlePlaceOrder =()=>{
         console.log("Placing order")
+        navigate("/checkout", { state: { orderId, totalPrice } });
     }
 
   return (
@@ -57,12 +57,25 @@ const OrderPage = () => {
                           </p>
                       </div>
                       <div className="text-lg mb-2">
-                        <p><b>Email:</b> {user.email}</p>
+                          <p>
+                              <b>Email:</b> {user.email}
+                          </p>
                       </div>
                       <div className="py-2 mb-4">
                           <h3 className="text-xl mb-2 font-bold">Address:</h3>
                           <p className="italic">{addressInfo}</p>
                       </div>
+                      <Message
+                          type={orderData.isDelivered ? "success" : "error"}
+                      >
+                          {orderData.isDelivered
+                              ? `Order is delivered at ${new Date(
+                                    orderData.deliveredAt
+                                )
+                                    .toISOString()
+                                    .slice(0, 10)}`
+                              : "Order is not delivered yet."}
+                      </Message>
                       <hr className="border-b-0 border-gray-400" />
                   </div>
                   <div className="rounded-lg p-4 bg-white mt-4">
@@ -70,6 +83,13 @@ const OrderPage = () => {
                           <strong>Payment Method:</strong>{" "}
                           <i>{paymentMethod}</i>
                       </p>
+                      <Message type={orderData.isPaid ? "success" : "error"}>
+                          {orderData.isPaid
+                              ? `Order is paid at ${new Date(orderData.paidAt)
+                                    .toISOString()
+                                    .slice(0, 10)}.`
+                              : "Order is not paid yet."}
+                      </Message>
                   </div>
                   <div className="p-4 bg-white">
                       <strong>Cart Items:</strong>
@@ -112,33 +132,37 @@ const OrderPage = () => {
                   <ul className="divide-y divide-gray-200">
                       <li className="flex justify-between py-2">
                           <span>Items Price:</span>
-                          <span>${itemsPrice}</span>
+                          <span>${itemsPrice.toFixed(2)}</span>
                       </li>
                       <li className="flex justify-between py-2">
                           <span>Tax Price:</span>
-                          <span>${taxPrice}</span>
+                          <span>${taxPrice.toFixed(2)}</span>
                       </li>
                       <li className="flex justify-between py-2">
                           <span>Shipping Price:</span>
-                          <span>${shippingPrice}</span>
+                          <span>${shippingPrice.toFixed(2)}</span>
                       </li>
                       <li className="flex justify-between py-2 font-semibold">
                           <span>Total Price:</span>
-                          <span>${totalPrice}</span>
+                          <span>${totalPrice.toFixed(2)}</span>
                       </li>
                   </ul>
 
                   <button
                       type="submit"
                       onClick={handlePlaceOrder}
-                      //   disabled={cartItems.length === 0 || isPending}
+                      disabled={
+                          orderItems.length === 0 ||
+                          isLoading ||
+                          orderData.isPaid
+                      }
                       className={`w-full mt-4 py-2 text-white font-semibold rounded ${
-                          orderItems.length === 0
+                          orderItems.length === 0 || orderData.isPaid
                               ? "bg-gray-400 cursor-not-allowed"
                               : "bg-blue-600 hover:bg-blue-700"
                       }`}
                   >
-                      {/* {isPending ? "Placing Order..." : "Place Order"} */}
+                      CheckOut
                   </button>
               </div>
           </div>

@@ -71,3 +71,16 @@ export const fetchMyOrders=async()=>{
     const response=await apiClient.get("/orders/mine");
     return response.data;
 }
+
+export const createPayment=async(amount,orderId)=>{
+    const response=await apiClient.post("/payments/create-payment",{
+        amount,
+        orderId,
+    })
+    return response.data;
+}
+
+export const updateOrderToPaid=async(orderId,paymentResult)=>{
+    const response=await apiClient.put(`/orders/${orderId}/pay`,paymentResult);
+    return response.data;
+}
