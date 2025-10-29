@@ -3,6 +3,14 @@ import { Link,useNavigate,useParams } from "react-router-dom";
 import Message from "../components/Message.jsx";
 import { useGetOrderDetails } from '../hooks/useOrder.js';
 import Loader from "../components/Loader.jsx";
+import { useState } from "react";
+import StripeCheckoutForm from "../components/StripeCheckOutForm";
+import Checkout from "./Checkout";
+import { motion } from "framer-motion";
+import CheckoutA from "./CheckoutA.jsx";
+import { useStripe } from "@stripe/react-stripe-js";
+import { updateOrderToPaid } from "../apiCall/dataFetch.js";
+import { toast } from "react-toastify";
 
 
 
@@ -10,17 +18,20 @@ const OrderPage = () => {
 
     const {id:orderId}=useParams()
 
+    const [isModalOpen,setIsModalOpen]=useState(false);
+
+
     // console.log(orderId);
 
-    const navigate = useNavigate();
-    const {data:orderData,isLoading,error}=useGetOrderDetails(orderId)
+    // const navigate = useNavigate();
+    const {data:orderData,isLoading}=useGetOrderDetails(orderId)
+
 
     if(isLoading){
         return <Loader />
     }
 
-    console.log("Order Data:",orderData);
-
+    const toggleModalOpen=()=>setIsModalOpen(prev=>!prev)
     const {
         paymentMethod,
         itemsPrice,
@@ -32,16 +43,13 @@ const OrderPage = () => {
         user
     } = orderData
 
-    const { address, city, postalCode, country } = shippingAddress;
+    const { address, city, postalCode, country } = shippingAddress || {};
 
     const addressInfo = address
         ? `${address}, ${city}, ${postalCode}, ${country}`
         : "No address provided";
 
-    const handlePlaceOrder =()=>{
-        console.log("Placing order")
-        navigate("/checkout", { state: { orderId, totalPrice } });
-    }
+    if(!orderData) return <Message type="error">No order is founded!</Message>
 
   return (
       <div className="p-4 max-w-6xl mx-auto">
@@ -53,7 +61,7 @@ const OrderPage = () => {
                       <hr className="border-b-0 border-gray-400" />
                       <div className="text-lg mb-2">
                           <p>
-                              <b>Name:</b> {user.username}
+                              <b>Name:</b> {user?.username || "Unknown"}
                           </p>
                       </div>
                       <div className="text-lg mb-2">
@@ -150,7 +158,8 @@ const OrderPage = () => {
 
                   <button
                       type="submit"
-                      onClick={handlePlaceOrder}
+                      //   onClick={handlePlaceOrder}
+                      onClick={toggleModalOpen}
                       disabled={
                           orderItems.length === 0 ||
                           isLoading ||
@@ -166,6 +175,33 @@ const OrderPage = () => {
                   </button>
               </div>
           </div>
+          {isModalOpen && (
+              <motion.div
+                  className="fixed inset-0 bg-blue-300 bg-opacity-50 flex items-center justify-center z-50"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+              >
+                  <motion.div
+                      className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative opacity-50"
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                  >
+                      <button
+                          onClick={toggleModalOpen}
+                          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+                      >
+                          ✕
+                      </button>
+                      <h2 className="text-xl font-semibold mb-4">
+                          Complete Your Payment
+                      </h2>
+
+                      {/* <Checkout orderId={orderId} totalPrice={totalPrice} /> */}
+                      <CheckoutA orderId={orderId} totalPrice={totalPrice} />
+                  </motion.div>
+              </motion.div>
+          )}
       </div>
   );
 }

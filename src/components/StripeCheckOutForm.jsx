@@ -49,9 +49,10 @@ const StripeCheckoutForm = ({ clientSecret, orderId }) => {
             const cardNumberElement = elements.getElement(CardNumberElement);
             const { error: paymentError, paymentMethod } =
                 await stripe.createPaymentMethod({
-                    type: "card",
+                    // type: "card",
                     card: cardNumberElement,
                     billing_details: { name: cardholderName },
+                    automatic_payment_methods: { enabled: true },
                 });
 
             if (paymentError) {

@@ -10,7 +10,7 @@ import NewProduct from './pages/NewProduct.jsx';
 import SignUp from './pages/SignUp.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
 import Profile from './pages/Profile.jsx';
-import About from './pages/OrderPage.jsx';
+import CheckoutA from './pages/CheckoutA.jsx';
 import CartPage from './pages/CartPage.jsx';
 import ShippingInfo from './pages/ShippingInfo.jsx';
 import PaymentPage from './pages/PaymentPage.jsx';
@@ -42,8 +42,9 @@ const router = createBrowserRouter(
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/shipping" element={<ShippingInfo />} />
                 <Route path="/payment" element={<PaymentPage />} />
-                <Route path='/checkout' element={<Checkout />}/>
-                <Route path="/order/:id" element={<OrderPage />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/checkout-a" element={<CheckoutA />} />
+                <Route path="/orders/:id" element={<OrderPage />} />
             </Route>
 
             <Route path="/" element={<AdminRoute />}>
@@ -53,7 +54,7 @@ const router = createBrowserRouter(
                 <Route path="/products/:id/edit" element={<ProductEdit />} />
                 <Route path="/admin/new" element={<NewProduct />} />
             </Route>
-            <Route path='*' element={<NotFound/>} />
+            <Route path="*" element={<NotFound />} />
         </Route>
     )
 );

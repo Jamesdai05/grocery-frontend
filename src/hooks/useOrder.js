@@ -17,7 +17,7 @@ export const useCreateOrder=()=>{
             queryClient.setQueryData(["orders", data._id], data);
             dispatch(clearCartItems());
             queryClient.invalidateQueries({ queryKey: ["orders"] });
-            toast.success("Order is created!")
+            // toast.success("Order is created!")
         },
 
         onError:(err)=>{

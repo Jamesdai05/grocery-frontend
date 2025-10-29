@@ -69,7 +69,7 @@ const PlaceOrder = () => {
                 console.log("Order created successfully:", data);
                 toast.success("Order placed successfully!");
                 // Clear cart logic can be added here if needed
-                navigate(`/order/${data._id}`);
+                navigate(`/orders/${data._id}`);
             },
             onError: (error) => {
                 console.error("Error in creating order:", error);

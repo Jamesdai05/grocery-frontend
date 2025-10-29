@@ -76,6 +76,7 @@ export const createPayment=async(amount,orderId)=>{
     const response=await apiClient.post("/payments/create-payment",{
         amount,
         orderId,
+        currency:"sgd" // this one is cater for the alipay or paynow.
     })
     return response.data;
 }
