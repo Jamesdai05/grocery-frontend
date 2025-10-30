@@ -99,6 +99,14 @@ h2 {
     @apply grid grid-cols-1 md:grid-cols-12 w-full mx-auto gap-4 mt-4 flex-1
 }
 
+.add-cart{
+    @apply flex items-center justify-between w-full;
+}
+
+.cart2{
+    @apply flex items-center justify-center p-3 rounded text-2xl text-blue-500;
+}
+
 
 /* profile */
 
