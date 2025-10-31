@@ -28,6 +28,7 @@ import NotFound from './pages/NotFound.jsx';
 
 
 
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
@@ -49,10 +50,11 @@ const router = createBrowserRouter(
 
             <Route path="/" element={<AdminRoute />}>
                 <Route path="/admin/new" element={<NewProduct />} />
-                <Route path="/admin/orders" element={<OrderPage />} />
+                <Route path="/admin/orderlist" element={<OrderPage />} />
                 <Route path="/users/:id/edit" element={<UserEdit />} />
                 <Route path="/products/:id/edit" element={<ProductEdit />} />
-                <Route path="/admin/new" element={<NewProduct />} />
+                <Route path="/admin/productlist" element={<Productls />} />
+                <Route path="/admin/product/new" element={<NewProduct />} />
             </Route>
             <Route path="*" element={<NotFound />} />
         </Route>

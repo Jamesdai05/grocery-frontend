@@ -1,16 +1,17 @@
 import { numberFormating } from "../../utils/cartUtils.js";
-import { Link,useNavigate,useParams } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import Message from "../components/Message.jsx";
 import { useGetOrderDetails } from '../hooks/useOrder.js';
 import Loader from "../components/Loader.jsx";
 import { useState } from "react";
 import StripeCheckoutForm from "../components/StripeCheckOutForm";
 import Checkout from "./Checkout";
+// import motion from "framer-motion";
 import { motion } from "framer-motion";
 import CheckoutA from "./CheckoutA.jsx";
-import { useStripe } from "@stripe/react-stripe-js";
-import { updateOrderToPaid } from "../apiCall/dataFetch.js";
-import { toast } from "react-toastify";
+// import { useStripe } from "@stripe/react-stripe-js";
+// import { updateOrderToPaid } from "../apiCall/dataFetch.js";
+// import { toast } from "react-toastify";
 
 
 
@@ -198,7 +199,11 @@ const OrderPage = () => {
                       </h2>
 
                       {/* <Checkout orderId={orderId} totalPrice={totalPrice} /> */}
-                      <CheckoutA orderId={orderId} totalPrice={totalPrice} />
+                      <CheckoutA
+                          orderId={orderId}
+                          totalPrice={totalPrice}
+                          onSuccess={toggleModalOpen}
+                      />
                   </motion.div>
               </motion.div>
           )}
