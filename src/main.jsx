@@ -22,6 +22,9 @@ import OrderPage from './pages/OrderPage.jsx';
 import ProductEdit from './pages/ProductEdit.jsx';
 import UserEdit from './pages/UserEdit.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Productlist from './pages/Admin/Productlist.jsx'
+import Orderlist from './pages/Admin/Orderlist.jsx';
+import UserList from './pages/Admin/UserList';
 
 
 
@@ -50,11 +53,12 @@ const router = createBrowserRouter(
 
             <Route path="/" element={<AdminRoute />}>
                 <Route path="/admin/new" element={<NewProduct />} />
-                <Route path="/admin/orderlist" element={<OrderPage />} />
+                <Route path="/admin/orderlist" element={<Orderlist />} />
                 <Route path="/users/:id/edit" element={<UserEdit />} />
                 <Route path="/products/:id/edit" element={<ProductEdit />} />
-                <Route path="/admin/productlist" element={<Productls />} />
+                <Route path="/admin/productlist" element={<Productlist />} />
                 <Route path="/admin/product/new" element={<NewProduct />} />
+                <Route path="/admin/userlist" element={<UserList />} />
             </Route>
             <Route path="*" element={<NotFound />} />
         </Route>

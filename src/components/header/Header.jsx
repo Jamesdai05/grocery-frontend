@@ -137,13 +137,46 @@ const Header = () => {
                               {user ? (
                                   <>
                                       {user.isAdmin && (
-                                          <Link
-                                              to="/admin/new"
-                                              onClick={() => setIsShow(false)}
-                                              className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
-                                          >
-                                              New Product
-                                          </Link>
+                                          <>
+                                              <li>
+                                                  <Link
+                                                      to="/admin/product/new"
+                                                      onClick={() =>
+                                                          setIsShow(false)
+                                                      }
+                                                      className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
+                                                  >
+                                                      New Product
+                                                  </Link>
+                                              </li>
+                                              <li>
+                                                  <Link
+                                                      to="/admin/productlist"
+                                                      onClick={closeMobileMenu}
+                                                      className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
+                                                  >
+                                                      ProductList
+                                                  </Link>
+                                              </li>
+                                              <li>
+                                                  <Link
+                                                      to="/admin/orderlist"
+                                                      onClick={closeMobileMenu}
+                                                      className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
+                                                  >
+                                                      All Orders
+                                                  </Link>
+                                              </li>
+                                              <li>
+                                                  <Link
+                                                      to="/admin/userlist"
+                                                      onClick={closeMobileMenu}
+                                                      className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
+                                                  >
+                                                      All Users
+                                                  </Link>
+                                              </li>
+                                          </>
                                       )}
                                       <Link
                                           to="/profile"
@@ -280,40 +313,47 @@ const Header = () => {
                                   )}
                               </Link>
                           </li>
-
                           {user ? (
                               <>
                                   {user.isAdmin && (
-                                      <li>
-                                          <Link
-                                              to="/admin/product/new"
-                                              onClick={closeMobileMenu}
-                                              className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
-                                          >
-                                              New Product
-                                          </Link>
-                                          <Link
-                                              to="/admin/productlist"
-                                              onClick={closeMobileMenu}
-                                              className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
-                                          >
-                                              ProductList
-                                          </Link>
-                                          <Link
-                                              to="/admin/Orderslist"
-                                              onClick={closeMobileMenu}
-                                              className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
-                                          >
-                                              All Orders
-                                          </Link>
-                                          <Link
-                                              to="/admin/Orderslist"
-                                              onClick={closeMobileMenu}
-                                              className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
-                                          >
-                                              All Users
-                                          </Link>
-                                      </li>
+                                      <>
+                                          <li>
+                                              <Link
+                                                  to="/admin/product/new"
+                                                  onClick={closeMobileMenu}
+                                                  className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+                                              >
+                                                  New Product
+                                              </Link>
+                                          </li>
+                                          <li>
+                                              <Link
+                                                  to="/admin/productlist"
+                                                  onClick={closeMobileMenu}
+                                                  className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+                                              >
+                                                  ProductList
+                                              </Link>
+                                          </li>
+                                          <li>
+                                              <Link
+                                                  to="/admin/Orderslist"
+                                                  onClick={closeMobileMenu}
+                                                  className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+                                              >
+                                                  All Orders
+                                              </Link>
+                                          </li>
+                                          <li>
+                                              <Link
+                                                  to="/admin/Orderslist"
+                                                  onClick={closeMobileMenu}
+                                                  className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+                                              >
+                                                  All Users
+                                              </Link>
+                                          </li>
+                                      </>
                                   )}
                                   <li>
                                       <Link

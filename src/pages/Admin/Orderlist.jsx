@@ -3,4 +3,4 @@ const OrderList = () => {
     <div>OrderList</div>
   )
 }
-export default OrderList
+export default OrderList;
