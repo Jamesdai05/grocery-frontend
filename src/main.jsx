@@ -19,7 +19,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Checkout from './pages/Checkout.jsx';
 import AdminRoute from './components/AdminRoute';
 import OrderPage from './pages/OrderPage.jsx';
-import ProductEdit from './pages/ProductEdit.jsx';
+import ProductEdit from './pages/Admin/ProductEdit.jsx';
 import UserEdit from './pages/UserEdit.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Productlist from './pages/Admin/Productlist.jsx'

@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cartReducer, { loadCartFromStorage } from '../Slices/cartSlice.js';
 import authReducer from '../Slices/authSlice.js';
+import productReducer from '../Slices/productSlice.js';
 
 // Load initial cart state from localStorage
 const loadCartState = () => {
@@ -21,6 +22,7 @@ export const store = configureStore({
     reducer: {
         cart: cartReducer,
         auth: authReducer,
+        product: productReducer,
     },
     // Enable Redux DevTools in development
     devTools: import.meta.env.DEV,

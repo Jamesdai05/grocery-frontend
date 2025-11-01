@@ -28,7 +28,7 @@ const OrderList = () => {
 
 
   return (
-      <div className="flex max-w-[1140px] mx-auto px-4 flex-col">
+      <div className="admin-list-container">
           <h1 className="text-4xl font-semibold py-3">OrderList</h1>
 
           <div className="overflow-x-auto shadow-md rounded-lg">

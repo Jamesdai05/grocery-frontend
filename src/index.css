@@ -164,3 +164,11 @@ h2 {
 .td-style{
     @apply py-2 flex justify-center items-center;
 }
+
+.admin-list-container{
+    @apply flex max-w-[1140px] mx-auto px-4 flex-col;
+}
+
+.fatimes {
+    @apply text-red-600 text-2xl;
+}

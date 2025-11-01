@@ -90,3 +90,21 @@ export const fetchAllOrders=async()=>{
     const response=await apiClient.get("/orders");
     return response.data;
 }
+
+export const fetchAllProducts=async()=>{
+    const response=await apiClient.get("/products");
+    // console.log(response)
+    return response.data
+}
+
+export const deleteProductById=async(producId)=>{
+    const {data}=await apiClient.delete(`/products/${producId}`);
+    return data;
+}
+
+export const editProductById=async(productId)=>{
+    const {data}=await apiClient.put(`/products/${productId}`);
+    return data;
+}
+
+
