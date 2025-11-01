@@ -85,3 +85,8 @@ export const updateOrderToPaid=async(orderId,paymentResult)=>{
     const response=await apiClient.put(`/orders/${orderId}/pay`,paymentResult);
     return response.data;
 }
+
+export const fetchAllOrders=async()=>{
+    const response=await apiClient.get("/orders");
+    return response.data;
+}

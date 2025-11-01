@@ -158,3 +158,9 @@ h2 {
 .radio-group{
     @apply flex justify-start gap-4
 }
+
+/* orderList-admin */
+
+.td-style{
+    @apply py-2 flex justify-center items-center;
+}
