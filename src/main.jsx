@@ -54,8 +54,8 @@ const router = createBrowserRouter(
             <Route path="/" element={<AdminRoute />}>
                 <Route path="/admin/new" element={<NewProduct />} />
                 <Route path="/admin/orderlist" element={<Orderlist />} />
-                <Route path="/users/:id/edit" element={<UserEdit />} />
-                <Route path="/products/:id/edit" element={<ProductEdit />} />
+                <Route path="/admin/users/:id/edit" element={<UserEdit />} />
+                <Route path="/admin/product/:id/edit" element={<ProductEdit />} />
                 <Route path="/admin/productlist" element={<Productlist />} />
                 <Route path="/admin/product/new" element={<NewProduct />} />
                 <Route path="/admin/userlist" element={<UserList />} />

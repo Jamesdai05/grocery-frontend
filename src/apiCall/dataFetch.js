@@ -102,9 +102,35 @@ export const deleteProductById=async(producId)=>{
     return data;
 }
 
-export const editProductById=async(productId)=>{
-    const {data}=await apiClient.put(`/products/${productId}`);
+
+
+export const updateProductById=async(productId,productData)=>{
+    const {data}=await apiClient.put(`/products/${productId}`,productData);
+    console.log(data);
     return data;
 }
 
+export const uploadFile=async(file)=>{
+    try{
+        const formData = new FormData();
+        formData.append("image", file); // "image" must match multer field name
+
+        const { data } = await apiClient.post("/upload/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log("Uploaded file data:", data);
+        return data;
+    }catch(err){
+        console.error("failed to upload the file",err);
+        console.log(err?.response?.data || err?.message);
+    }
+}
+
+export const createNewProduct=async(productData)=>{
+    const {data}=await apiClient.post("/products/new",productData);
+    return data;
+}
 

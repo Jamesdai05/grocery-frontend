@@ -1,20 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { IoIosCreate } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { fetchAllProducts } from "../../apiCall/dataFetch.js";
 import Loader from "../../components/Loader.jsx";
 import Message from "../../components/Message.jsx";
-import { deleteProductById } from "../../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
+import { useCreateProduct, useDeleteProduct } from "../../hooks/useProduct.js";
+
 
 
 const Productlist = () => {
+    const navigate=useNavigate();
 
     const {data:allProducts,isLoading,error}=useQuery({
         queryKey:["products"],
         queryFn:fetchAllProducts
     })
+
+    const {mutate:createANewProduct,isPending:isCreating}=useCreateProduct();
+
+    const {mutate:deleteProductById,isPending:isDeleting}=useDeleteProduct()
+
     // console.log(data.products)
     if(isLoading) return <Loader />;
     {error && <Message type="error">Error: {error.message}</Message>}
@@ -24,18 +32,39 @@ const Productlist = () => {
     console.log(products)
     console.log(typeof(allProducts))
 
-    const handleDelete=async(id)=>{
+    const handleDelete=(id)=>{
         if(window.confirm("Are you sure you want to delete this product?")
         ){
-            await deleteProductById(id);
+            deleteProductById(id);
         }
-        toast.success("Product deleted");
+    }
+
+    const handleEdit=async(id)=>{
+        navigate(`/admin/product/${id}/edit`);
+    }
+
+    const handleCreate = () => {
+        if (window.confirm("Are you sure you want to create a product?")) {
+            try {
+                createANewProduct();
+                // toast.success("Template Product is created.");
+            } catch (error) {
+                toast.error(error?.data?.message || error?.error);
+            }
+        }
     }
 
 
   return (
       <div className="admin-list-container">
-          <h1 className="text-4xl font-semibold py-3">OrderList</h1>
+          <div className="flex justify-between items-center my-4">
+              <h1 className="text-4xl font-semibold py-3">ProductList</h1>
+              <button
+                  className="btn flex items-center"
+                  type="button"
+                  onClick={handleCreate}
+              ><IoIosCreate className="text-white"/>Create Product</button>
+          </div>
 
           <div className="overflow-x-auto shadow-md rounded-lg">
               <table className="min-w-full border border-gray-200">
@@ -72,13 +101,18 @@ const Productlist = () => {
                               </td>
                               <td>{product.stock}</td>
                               <td>
-                                  <button className="flex justify-center px-4" onClick={()=>console.log(`delete ${product._id}
-                                  `)}>
+                                  <button
+                                      className="flex justify-center px-4"
+                                      onClick={() => handleEdit(product._id)}
+                                  >
                                       <FaRegEdit />
                                   </button>
                               </td>
                               <td>
-                                  <button className="flex justify-center text-3xl" onClick={()=>handleDelete(product._id)}>
+                                  <button
+                                      className="flex justify-center text-3xl"
+                                      onClick={() => handleDelete(product._id)}
+                                  >
                                       <MdDeleteForever className="text-red-500" />
                                   </button>
                               </td>
