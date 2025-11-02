@@ -69,6 +69,7 @@ export const fetchOrderById=async(orderId)=>{
 
 export const fetchMyOrders=async()=>{
     const response=await apiClient.get("/orders/mine");
+    console.log(response.data);
     return response.data;
 }
 

@@ -172,3 +172,12 @@ h2 {
 .fatimes {
     @apply text-red-600 text-2xl;
 }
+
+/* table style */
+.table-head{
+    @apply uppercase bg-gray-400 p-4;
+}
+
+.fatimes {
+    @apply text-red-500 text-2xl text-center;
+}
