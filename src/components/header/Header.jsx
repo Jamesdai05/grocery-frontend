@@ -140,17 +140,6 @@ const Header = () => {
                                           <>
                                               <li>
                                                   <Link
-                                                      to="/admin/product/new"
-                                                      onClick={() =>
-                                                          setIsShow(false)
-                                                      }
-                                                      className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
-                                                  >
-                                                      New Product
-                                                  </Link>
-                                              </li>
-                                              <li>
-                                                  <Link
                                                       to="/admin/productlist"
                                                       onClick={closeMobileMenu}
                                                       className="dropdown-link block px-4 py-2 hover:bg-slate-200 rounded transition-colors"
