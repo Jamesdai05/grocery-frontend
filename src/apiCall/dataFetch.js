@@ -135,3 +135,15 @@ export const createNewProduct=async(productData)=>{
     return data;
 }
 
+export const fetchAllUsers=async()=>{
+    const {data}=await apiClient.get("/users");
+    return data;
+}
+
+export const deleteUserById=async(userId)=>{
+    const {data}=await apiClient.delete(`/users/admin/${userId}`);
+    return data;
+}
+
+
+

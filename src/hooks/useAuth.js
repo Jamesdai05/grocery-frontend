@@ -1,11 +1,18 @@
 import { useQuery,useMutation,useQueryClient } from "@tanstack/react-query";
 
-import { userRegistration,logOutUser,loginUser,fetchUserProfile, updateUserProfile } from "../apiCall/dataFetch.js";
+import {
+    userRegistration,
+    logOutUser,
+    loginUser,
+    fetchUserProfile,
+    updateUserProfile,
+    fetchAllUsers,
+    deleteUserById,
+ } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { logOut,setUserInfo} from "../Slices/authSlice.js";
 import { resetCart } from "../Slices/cartSlice.js";
-
 
 
 // export const useCurrentUser=()=>{
@@ -100,5 +107,40 @@ export const useUpdateUserProfile=()=>{
         onError:(err)=>{
             toast.error(err?.response?.data?.message || err.message);
         }
+    })
+}
+
+export const useFetchAllUsers=()=>{
+    return useQuery({
+        queryKey:["users"],
+        queryFn:fetchAllUsers,
+        onSuccess:(data)=>{
+            console.log("All users are:",data);
+        },
+
+        onError:(e)=>{
+            console.error("Error fetching users:",e);
+            toast.error("Failed to fetch users");
+        }
+    })
+}
+
+
+export const useDeleteUser=()=>{
+    const queryClient=useQueryClient();
+
+    return useMutation({
+        mutationKey:["deleteUser"],
+        mutationFn:(id)=>deleteUserById(id),
+        onSuccess:()=>{
+            toast.success("User deleted!");
+            queryClient.invalidateQueries(["users"]);
+        },
+
+        onError:(err)=>{
+            toast.error(err?.response?.data?.message || err.message);
+            console.error("Error deleting user:",err);
+        }
+
     })
 }
