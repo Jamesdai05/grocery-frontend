@@ -150,5 +150,9 @@ export const editUserByAdmin=async(userId)=>{
     return data;
 }
 
+export const getUserDetailsById=async(userId)=>{
+    const {data}=await apiClient.get(`/users/admin/${userId}`)
+    return data;
+}
 
 

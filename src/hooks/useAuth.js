@@ -8,7 +8,8 @@ import {
     updateUserProfile,
     fetchAllUsers,
     deleteUserById,
-    editUserByAdmin
+    editUserByAdmin,
+    getUserDetailsById,
  } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -17,16 +18,16 @@ import { resetCart } from "../Slices/cartSlice.js";
 
 
 
-// export const useCurrentUser=()=>{
-//     return useQuery({
-//         queryKey:["currentUser"],
-//         queryFn:fetchCurrentUser,
-//         staleTime:5*60*1000, // 5 minutes
-//         retry:0,
-//         enabled:true,
-//         refetchOnWindowFocus: false, // disable refetch on window focus
-//     })
-// }
+export const useGetUserDetails=(userId)=>{
+    return useQuery({
+        queryKey:["getUser",userId],
+        queryFn:()=>getUserDetailsById(userId),
+        enabled:!!userId,  //runs when userId is truthy
+        staleTime:5*60*1000, // 5 minutes
+        retry:0,
+        refetchOnWindowFocus: false, // disable refetch on window focus
+    })
+}
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
@@ -164,3 +165,4 @@ export const useUpdateUserByAdmin=()=>{
 
     })
 }
+

@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { useUpdateUserByAdmin } from "../../hooks/useAuth.js";
+import { useGetUserDetails, useUpdateUserByAdmin } from "../../hooks/useAuth.js";
 import { Link } from "react-router-dom";
 import FormContainer from "../../components/FormContainer.jsx";
+import { useParams } from "react-router-dom";
 
 const UserEdit = () => {
+    const {id:userId}=useParams()
+
+    const { data, isLoading } = useGetUserDetails(userId);
+
+    console.log(data);
 
     const [formData,setFormData]=useState({
-        username:"",
+        username: "",
         email:"",
         isAdmin:false,
     })
+
 
     const {mutate:editUser,isPending,error}=useUpdateUserByAdmin()
 
@@ -82,12 +89,12 @@ const UserEdit = () => {
                       onChange={handleChange}
                   />
               </div>
-              <div className="form-control2">
+              <div>
                   <label htmlFor="isAdmin">IsAdmin:</label>
                   <input
-                      //   type="checkbox"
+                      type="checkbox"
                       value={formData.isAdmin}
-                      className="form-input2"
+                      className="ms-1 inline-block"
                       name="isAdmin"
                       id="isAdmin"
                       placeholder="Enter price"

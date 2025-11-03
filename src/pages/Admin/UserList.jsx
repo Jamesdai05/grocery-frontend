@@ -22,7 +22,7 @@ const UserList = () => {
     }
 
     const handleUserEdit = (id) => {
-        navigate(`/admin/edit/${id}`);
+        navigate(`/admin/user/edit/${id}`);
     };
 
     if(isLoading) return <Loader />;
