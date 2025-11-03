@@ -326,7 +326,7 @@ const Header = () => {
                                           </li>
                                           <li>
                                               <Link
-                                                  to="/admin/Orderslist"
+                                                  to="/admin/orderslist"
                                                   onClick={closeMobileMenu}
                                                   className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
                                               >
@@ -335,7 +335,7 @@ const Header = () => {
                                           </li>
                                           <li>
                                               <Link
-                                                  to="/admin/Orderslist"
+                                                  to="/admin/userlist"
                                                   onClick={closeMobileMenu}
                                                   className="block px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
                                               >

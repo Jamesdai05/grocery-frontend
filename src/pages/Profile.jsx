@@ -23,8 +23,8 @@ const Profile = () => {
 
     const {data:myOrders,isLoading:isOrderLoading}=useGetMyOrder();
 
-    // console.log(user)
-    console.log(myOrders);
+    console.log(user,myOrders)
+    // console.log(myOrders);
     useEffect(()=>{
         if(user){
             setFormData({

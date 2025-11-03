@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useUpdateUserByAdmin } from "../../hooks/useAuth.js";
+import { Link } from "react-router-dom";
+import FormContainer from "../../components/FormContainer.jsx";
 
 const UserEdit = () => {
 
@@ -56,7 +58,7 @@ const UserEdit = () => {
               </Link>
           </div>
           <form className="form-container max-w-6xl" onSubmit={handleSubmit}>
-              {/* <div className="form-control2">
+              <div className="form-control2">
                   <label htmlFor="username">Username</label>
                   <input
                       type="text"
@@ -81,16 +83,17 @@ const UserEdit = () => {
                   />
               </div>
               <div className="form-control2">
-                  <label htmlFor="isAdmin">IsAdmin</label>
-                  <checkbox
-                      //   type="text"
+                  <label htmlFor="isAdmin">IsAdmin:</label>
+                  <input
+                      //   type="checkbox"
+                      value={formData.isAdmin}
                       className="form-input2"
                       name="isAdmin"
                       id="isAdmin"
                       placeholder="Enter price"
                       onChange={handleCheck}
                   />
-              </div> */}
+              </div>
               <div>
                   <button
                       type="submit"
