@@ -3,6 +3,7 @@ import { useFetchAllUsers } from "../../hooks/useAuth.js"
 import Loader from "../../components/Loader.jsx";
 import { FaRegEdit, FaTimes,FaCheck,FaTrash } from "react-icons/fa";
 import { useDeleteUser } from "../../hooks/useAuth.js";
+import { useNavigate } from "react-router-dom";
 
 
 const UserList = () => {
@@ -11,10 +12,18 @@ const UserList = () => {
 
     const {mutate:deleteUser, isPending}=useDeleteUser();
 
+    const navigate=useNavigate();
+
     const handleUserDelete=(id)=>{
-        deleteUser(id);
-        console.log("user deleted")
+        if(window.confirm("Are you sure you want to delete this product?")){
+            deleteUser(id);
+            // console.log("user deleted")
+        }
     }
+
+    const handleUserEdit = (id) => {
+        navigate(`/admin/edit/${id}`);
+    };
 
     if(isLoading) return <Loader />;
     // if(error) return <Message></Message>
@@ -56,13 +65,14 @@ const UserList = () => {
                                   </span>
                               </td>
                               <td>
-                                  <button onClick={()=>console.log("hello")}>
+                                  <button onClick={()=>handleUserEdit(user._id)}>
                                       <FaRegEdit className="text-blue-500 cursor-pointer text-2xl" />
                                   </button>
                               </td>
                               <td>
                                   <button
                                     onClick={()=>handleUserDelete(user._id)}
+                                    disabled={isPending}
                                   >
                                       <FaTrash
                                       className="text-red-500 cursor-pointer text-xl" />

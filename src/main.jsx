@@ -20,7 +20,7 @@ import Checkout from './pages/Checkout.jsx';
 import AdminRoute from './components/AdminRoute';
 import OrderPage from './pages/OrderPage.jsx';
 import ProductEdit from './pages/Admin/ProductEdit.jsx';
-import UserEdit from './pages/UserEdit.jsx';
+import UserEdit from "./pages/Admin/Orderlist";
 import NotFound from './pages/NotFound.jsx';
 import Productlist from './pages/Admin/Productlist.jsx'
 import Orderlist from './pages/Admin/Orderlist.jsx';
@@ -35,7 +35,7 @@ import UserList from './pages/Admin/UserList';
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
-            <Route path="/" index={true} element={<Home />} />
+            <Route index={true} element={<Home />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
@@ -54,8 +54,11 @@ const router = createBrowserRouter(
             <Route path="/" element={<AdminRoute />}>
                 <Route path="/admin/new" element={<NewProduct />} />
                 <Route path="/admin/orderlist" element={<Orderlist />} />
-                <Route path="/admin/users/:id/edit" element={<UserEdit />} />
-                <Route path="/admin/product/:id/edit" element={<ProductEdit />} />
+                <Route path="/admin/edit/:id" element={<UserEdit />} />
+                <Route
+                    path="/admin/products/:id/edit"
+                    element={<ProductEdit />}
+                />
                 <Route path="/admin/productlist" element={<Productlist />} />
                 <Route path="/admin/product/new" element={<NewProduct />} />
                 <Route path="/admin/userlist" element={<UserList />} />

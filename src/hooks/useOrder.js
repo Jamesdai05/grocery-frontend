@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { createdOrder, createPayment, updateOrderToPaid } from "../apiCall/dataFetch.js";
+import { createdOrder, createPayment, updateOrderToPaid,fetchAllOrders } from "../apiCall/dataFetch.js";
 import { useDispatch } from "react-redux";
 import { clearCartItems } from "../Slices/cartSlice.js";
 import { fetchMyOrders,fetchOrderById } from "../apiCall/dataFetch.js";
@@ -33,6 +33,7 @@ export const useGetOrderDetails=(orderId)=>{
         queryFn:()=>fetchOrderById(orderId),
         enabled:!!orderId, //only run when the orderId is truthy
         retry: false,
+        refetchOnReconnect:true,
         onError:(err)=>{
             toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
         }
@@ -86,6 +87,23 @@ export const useGetMyOrder=()=>{
         },
         onSuccess:(data)=>{
             // toast.success("Get my order successfully!");
+            console.log("Fetched my orders successfully", data);
+        }
+    })
+}
+
+export const useFetchAllOrders=()=>{
+
+    return useQuery({
+        queryKey:["allOrder"],
+        queryFn:fetchAllOrders,
+        retry:1,
+        refetchOnWindowFocus:false, // prevents refetch + toast spam when window refocuses
+        onError:(err)=>{
+            toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
+        },
+        onSuccess:(data)=>{
+            toast.success("Get all order successfully!");
             console.log("Fetched my orders successfully", data);
         }
     })

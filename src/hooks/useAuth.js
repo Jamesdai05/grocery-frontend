@@ -8,11 +8,13 @@ import {
     updateUserProfile,
     fetchAllUsers,
     deleteUserById,
+    editUserByAdmin
  } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { logOut,setUserInfo} from "../Slices/authSlice.js";
 import { resetCart } from "../Slices/cartSlice.js";
+
 
 
 // export const useCurrentUser=()=>{
@@ -140,6 +142,24 @@ export const useDeleteUser=()=>{
         onError:(err)=>{
             toast.error(err?.response?.data?.message || err.message);
             console.error("Error deleting user:",err);
+        }
+
+    })
+}
+
+export const useUpdateUserByAdmin=()=>{
+    const queryClient=useQueryClient();
+
+    return useMutation({
+        mutationKey:["updateUserByAdmin"],
+        mutationFn:(id)=>editUserByAdmin(id),
+        onSuccess:()=>{
+            toast.success("User updated successfully!");
+            queryClient.invalidateQueries(["users"]);
+        },
+        onError:(err)=>{
+            toast.error(err?.response?.data?.message || err.message);
+            console.error("Error updating user:",err);
         }
 
     })

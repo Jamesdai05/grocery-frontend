@@ -40,7 +40,7 @@ const Productlist = () => {
     }
 
     const handleEdit=async(id)=>{
-        navigate(`/admin/product/${id}/edit`);
+        navigate(`/admin/products/${id}/edit`);
     }
 
     const handleCreate = () => {

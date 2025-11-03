@@ -145,5 +145,10 @@ export const deleteUserById=async(userId)=>{
     return data;
 }
 
+export const editUserByAdmin=async(userId)=>{
+    const {data}=await apiClient.put(`/users/admin/${userId}/edit`);
+    return data;
+}
+
 
 
