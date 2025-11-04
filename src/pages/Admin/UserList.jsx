@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
 
-    const {data:allUsers,isLoading,error}=useFetchAllUsers();
+    const {data:allUsers,isLoading}=useFetchAllUsers();
 
     const {mutate:deleteUser, isPending}=useDeleteUser();
 

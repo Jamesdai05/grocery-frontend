@@ -9,3 +9,14 @@ export const category=[
     "Vegetables",
     "Rice, Noodles & Cooking Ingredients"
 ]
+
+
+export const dateFormater=(date)=>{
+    return new Date(date).toLocaleDateString("en-SG",{
+        year:"numeric",
+        month:"short",
+        day:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+    })
+}

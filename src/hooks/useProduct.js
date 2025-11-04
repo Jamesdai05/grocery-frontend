@@ -55,7 +55,8 @@ export const useUpdateProduct=(productId)=>{
         mutationKey:["updateProduct",productId],
         mutationFn:(productData)=>updateProductById(productId,productData),
         onSuccess:(data)=>{
-            queryClient.setQueryData(["product",productId],data);
+            // queryClient.setQueryData(["product",productId],data);
+            queryClient.invalidateQueries(["product"]);
             toast.success("Product updated successfully!");
         },
         onError:(e)=>{

@@ -14,9 +14,12 @@ export const useCreateOrder=()=>{
         mutationFn:createdOrder,
 
         onSuccess:(data)=>{
-            queryClient.setQueryData(["orders", data._id], data);
             dispatch(clearCartItems());
+            // queryClient.setQueriesData(["orders", data._id], data);
+
+
             queryClient.invalidateQueries({ queryKey: ["orders"] });
+            queryClient.invalidateQueries({ queryKey: ["myOrders"] });
             // toast.success("Order is created!")
         },
 
@@ -34,9 +37,9 @@ export const useGetOrderDetails=(orderId)=>{
         enabled:!!orderId, //only run when the orderId is truthy
         retry: false,
         refetchOnReconnect:true,
-        onError:(err)=>{
-            toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
-        }
+        // onError:(err)=>{
+        //     toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
+        // }
     })
 }
 
@@ -48,7 +51,7 @@ export const usePayOrder=(amount,orderId)=>{
             if(data.url){
                 window.location.href = data.url;
             }else {
-            toast.warn("No redirect URL received.");
+                toast.warn("No redirect URL received.");
             };
         },
         onError:(err)=>{
@@ -65,6 +68,8 @@ export const useUpdateOrderToPaid = () => {
     return useMutation({
         mutationFn: ({ orderId, paymentResult }) => updateOrderToPaid(orderId, paymentResult),
         onSuccess: (data, variables) => {
+            // update the specific order cache.
+            queryClient.setQueryData(["orders",variables.orderId],data)
             // Invalidate and refetch order details
             queryClient.invalidateQueries({ queryKey: ["orders", variables.orderId] });
             toast.success("Order payment updated successfully!");
@@ -82,13 +87,14 @@ export const useGetMyOrder=()=>{
         queryFn:fetchMyOrders,
         retry:1,
         refetchOnWindowFocus:false, // prevents refetch + toast spam when window refocuses
-        onError:(err)=>{
-            toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
-        },
-        onSuccess:(data)=>{
-            // toast.success("Get my order successfully!");
-            console.log("Fetched my orders successfully", data);
-        }
+        staleTime: 5 * 60 * 1000,
+        // onError:(err)=>{
+        //     toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
+        // },
+        // onSuccess:(data)=>{
+        //     // toast.success("Get my order successfully!");
+        //     console.log("Fetched my orders successfully", data);
+        // }
     })
 }
 
@@ -99,13 +105,7 @@ export const useFetchAllOrders=()=>{
         queryFn:fetchAllOrders,
         retry:1,
         refetchOnWindowFocus:false, // prevents refetch + toast spam when window refocuses
-        onError:(err)=>{
-            toast.error(err?.response?.data?.message || err.message || "Failed to fetch order details");
-        },
-        onSuccess:(data)=>{
-            toast.success("Get all order successfully!");
-            console.log("Fetched my orders successfully", data);
-        }
+        staleTime:3*60 * 1000,
     })
 }
 

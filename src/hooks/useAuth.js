@@ -10,6 +10,7 @@ import {
     deleteUserById,
     editUserByAdmin,
     getUserDetailsById,
+    updateUserByAdmin,
  } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -24,8 +25,8 @@ export const useGetUserDetails=(userId)=>{
         queryFn:()=>getUserDetailsById(userId),
         enabled:!!userId,  //runs when userId is truthy
         staleTime:5*60*1000, // 5 minutes
-        retry:0,
-        refetchOnWindowFocus: false, // disable refetch on window focus
+        retry:false,
+        refetchOnWindowFocus: true, // disable refetch on window focus
     })
 }
 
@@ -148,21 +149,19 @@ export const useDeleteUser=()=>{
     })
 }
 
+
 export const useUpdateUserByAdmin=()=>{
     const queryClient=useQueryClient();
 
     return useMutation({
-        mutationKey:["updateUserByAdmin"],
-        mutationFn:(id)=>editUserByAdmin(id),
+        mutationFn:async({userId,userData})=>updateUserByAdmin(userId,userData)
+,
         onSuccess:()=>{
             toast.success("User updated successfully!");
             queryClient.invalidateQueries(["users"]);
         },
-        onError:(err)=>{
-            toast.error(err?.response?.data?.message || err.message);
+        onError:(err)=>{toast.error(err?.response?.data?.message || err.message);
             console.error("Error updating user:",err);
         }
-
     })
 }
-

@@ -161,25 +161,23 @@ const Profile = () => {
             </div>
             <div className="md:w-8/12 w-full">
                 <h1 className="text-2xl font-bold">My Orders</h1>
-                <table className="min-w-full border-gray-200 mt-1">
-                    <thead className="table-head">
-                        <tr>
-                            <th>SN</th>
-                            <th>id</th>
-                            <th className="p-2">date</th>
-                            <th>total</th>
-                            <th>paid</th>
-                            <th>delivered</th>
-                            <th className="px-4">Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {myOrders?.length === 0 ? (
-                            <Message type="info">
-                                There is no order now.
-                            </Message>
-                        ) : (
-                            myOrders?.map((order, ind) => (
+                {myOrders?.length === 0 ? (
+                    <Message type="info">There is no order now.</Message>
+                ) : (
+                    <table className="min-w-full border-gray-200 mt-1">
+                        <thead className="table-head">
+                            <tr>
+                                <th>SN</th>
+                                <th>id</th>
+                                <th className="p-2">date</th>
+                                <th>total</th>
+                                <th>paid</th>
+                                <th>delivered</th>
+                                <th className="px-4">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {myOrders?.map((order, ind) => (
                                 <tr
                                     key={order._id}
                                     className={`my-2 text-lg text-center p-1 ${
@@ -217,17 +215,18 @@ const Profile = () => {
                                         )}
                                     </td>
                                     <td className="p-1">
-                                        <Link to={`/orders/${order._id}`}
+                                        <Link
+                                            to={`/orders/${order._id}`}
                                             className="bg-gray-500 p-1 rounded-md text-white"
                                         >
                                             Details
                                         </Link>
                                     </td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     );

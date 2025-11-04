@@ -142,6 +142,7 @@ const ProductEdit = () => {
                         id="name"
                         placeholder="Enter name"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -154,6 +155,7 @@ const ProductEdit = () => {
                         id="price"
                         placeholder="Enter price"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -166,6 +168,7 @@ const ProductEdit = () => {
                         id="description"
                         placeholder="Enter description"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -177,6 +180,7 @@ const ProductEdit = () => {
                         name="category"
                         id="category"
                         onChange={handleChange}
+                        defaultValue={category[0]}
                     >
                         {category.map((e) => (
                             <option key={e} value={e}>
@@ -194,6 +198,7 @@ const ProductEdit = () => {
                         name="stock"
                         id="stock"
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-control2">
@@ -205,6 +210,7 @@ const ProductEdit = () => {
                         name="image"
                         id="image"
                         onChange={handleChange}
+                        required
                     />
                     <input
                         type="file"

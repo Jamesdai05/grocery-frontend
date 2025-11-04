@@ -26,18 +26,6 @@ export const userRegistration=async(userData)=>{
     return response.data
 }
 
-// export const fetchCurrentUser=async()=>{
-//     try {
-//         const res = await apiClient.get("/users/current");
-//     if (res.status === 200) {
-//         return res.data; // user object
-//     }
-//         return null; // no user logged in
-//     } catch (error) {
-//         return null; // handle network error gracefully
-//   }
-// }
-
 export const logOutUser=async()=>{
     const response = await apiClient.post("/users/logout");
     return response.data
@@ -152,7 +140,15 @@ export const editUserByAdmin=async(userId)=>{
 
 export const getUserDetailsById=async(userId)=>{
     const {data}=await apiClient.get(`/users/admin/${userId}`)
+    console.log("Fetched user details:",data);
     return data;
 }
+
+export const updateUserByAdmin=async(userId,userData)=>{
+    const {data}=await apiClient.put(`/users/admin/edit/${userId}`,userData);
+    return data;
+}
+
+
 
 

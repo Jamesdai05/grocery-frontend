@@ -3,15 +3,16 @@ import { Link,useParams } from "react-router-dom";
 import Message from "../components/Message.jsx";
 import { useGetOrderDetails } from '../hooks/useOrder.js';
 import Loader from "../components/Loader.jsx";
-import { useState } from "react";
-import StripeCheckoutForm from "../components/StripeCheckOutForm";
-import Checkout from "./Checkout";
+import { useEffect, useState } from "react";
+// import StripeCheckoutForm from "../components/StripeCheckOutForm";
+// import Checkout from "./Checkout";
 // import motion from "framer-motion";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import CheckoutA from "./CheckoutA.jsx";
 // import { useStripe } from "@stripe/react-stripe-js";
 // import { updateOrderToPaid } from "../apiCall/dataFetch.js";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 
@@ -25,12 +26,21 @@ const OrderPage = () => {
     // console.log(orderId);
 
     // const navigate = useNavigate();
-    const {data:orderData,isLoading}=useGetOrderDetails(orderId)
+    const {data:orderData,isLoading,error,isError}=useGetOrderDetails(orderId)
+
+    useEffect(()=>{
+        if(isError){
+            toast.error(error?.response?.data?.message || error?.error || "Failed to load order")
+        }
+
+    },[error,isError])
 
 
     if(isLoading){
         return <Loader />
     }
+
+    if(isError) return <Message type="error">{error?.response?.data?.message || "failed to load data"}</Message>
 
     const toggleModalOpen=()=>setIsModalOpen(prev=>!prev)
     const {
