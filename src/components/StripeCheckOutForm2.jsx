@@ -37,14 +37,14 @@ const StripeCheckoutForm2 = ({ clientSecret, orderId }) => {
             /* confirm payment */
             const isRedirectPayment =
                 selectedPaymentMethod === "alipay" ||
-                selectedPaymentMethod === "paynow";
+                selectedPaymentMethod === "paynow" ||
+                selectedPaymentMethod === "grabpay";
 
             const { error: paymentError, paymentIntent } =
                 await stripe.confirmPayment({
                     elements,
                     confirmParams: isRedirectPayment ?
-                    {return_url: `${window.location.origin}/orders/${orderId}?payment=complete`} : {},
-
+                    {return_url: `${window.location.origin}/orders/${orderId}?payment=success`} : {},
                     redirect: isRedirectPayment ? "always" : "if_required", //apply for the cards,alway for the alipay and paynow.
                 });
 
@@ -96,7 +96,7 @@ const StripeCheckoutForm2 = ({ clientSecret, orderId }) => {
             <PaymentElement
                 options={{
                     layout: "tabs", // Shows payment methods as tabs
-                    paymentMethodOrder: ["card", "paynow", "alipay"],
+                    paymentMethodOrder: ["card", "paynow", "alipay", "grabpay"],
                 }}
                 onChange={(e) => {
                     // PaymentElement onChange event shape can vary; inspect in console to be sure

@@ -5,15 +5,12 @@ import { Link } from "react-router-dom";
 import { numberFormating } from "../../utils/cartUtils.js";
 import Loader from "../components/Loader.jsx";
 import { useNavigate } from "react-router-dom";
-import { useCreateOrder } from '../hooks/useOrder';
+import { useCreateOrder } from "../hooks/useOrder";
 import { toast } from "react-toastify";
 import Message from "../components/Message";
 
-
-
 const PlaceOrder = () => {
-
-    const {mutate:createOrder,isPending}=useCreateOrder()
+    const { mutate: createOrder, isPending } = useCreateOrder();
     const {
         paymentMethod,
         shippingAddress,
@@ -21,18 +18,18 @@ const PlaceOrder = () => {
         shippingPrice,
         itemsPrice,
         totalPrice,
-        taxPrice}=useSelector((state)=>state.cart)
+        taxPrice,
+    } = useSelector((state) => state.cart);
     // console.log(useSelector((state) => state.cart).shippingAddress);
-    const {address,city,postalCode,country}=shippingAddress
+    const { address, city, postalCode, country } = shippingAddress;
 
-    // console.log(typeof(shippingPrice),itemsPrice,totalPrice,taxPrice)
+    const addressInfo = address
+        ? `${address}, ${city}, ${postalCode}, ${country}`
+        : "No address provided";
 
+    const navigate = useNavigate();
 
-    const addressInfo=address ? `${address}, ${city}, ${postalCode}, ${country}` :"No address provided"
-
-    const navigate=useNavigate();
-
-    const handlePlaceOrder=()=>{
+    const handlePlaceOrder = () => {
         // console.log("Placing order the details:",shippingAddress,paymentMethod,cartItems);
         // handle order submit logic here
         if (!shippingAddress || !paymentMethod || cartItems.length === 0) {
@@ -50,6 +47,7 @@ const PlaceOrder = () => {
             qty: Number(item.qty),
             price: Number(item.price),
             image: item.image,
+            product: item._id,
         }));
 
         const orderData = {
@@ -68,17 +66,20 @@ const PlaceOrder = () => {
             onSuccess: (data) => {
                 console.log("Order created successfully:", data);
                 toast.success("Order placed successfully!");
-                // Clear cart logic can be added here if needed
+                // All payments now go through checkout modal
                 navigate(`/orders/${data._id}`);
             },
             onError: (error) => {
-                console.error("Error in creating order:", error);
+                console.error(
+                    "Error in creating order:",
+                    error.response.data.message
+                );
             },
         });
-    }
+    };
 
-    if(isPending){
-        return <Loader />
+    if (isPending) {
+        return <Loader />;
     }
 
     return (
@@ -160,9 +161,8 @@ const PlaceOrder = () => {
                         </li>
                     </ul>
 
-
                     <button
-                        type="submit"
+                        type="button"
                         onClick={handlePlaceOrder}
                         disabled={cartItems.length === 0 || isPending}
                         className={`w-full mt-4 py-2 text-white font-semibold rounded ${

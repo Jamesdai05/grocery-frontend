@@ -1,7 +1,7 @@
 import { numberFormating } from "../../utils/cartUtils.js";
-import { Link,useParams } from "react-router-dom";
+import { Link,useLocation,useParams } from "react-router-dom";
 import Message from "../components/Message.jsx";
-import { useGetOrderDetails } from '../hooks/useOrder.js';
+import { useGetOrderDetails, useUpdateOrderToPaid } from '../hooks/useOrder.js';
 import Loader from "../components/Loader.jsx";
 import { useEffect, useState } from "react";
 // import StripeCheckoutForm from "../components/StripeCheckOutForm";
@@ -10,9 +10,11 @@ import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import CheckoutA from "./CheckoutA.jsx";
+import { dateFormater } from "../../utils/constants.js";
 // import { useStripe } from "@stripe/react-stripe-js";
 // import { updateOrderToPaid } from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
+
 
 
 
@@ -26,7 +28,48 @@ const OrderPage = () => {
     // console.log(orderId);
 
     // const navigate = useNavigate();
-    const {data:orderData,isLoading,error,isError}=useGetOrderDetails(orderId)
+    const {
+        data: orderData,
+        isLoading,
+        error,
+        isError,
+        refetch,
+    } = useGetOrderDetails(orderId, {
+        // refetchOnWindowFocus: true, // optional for alipay and wechat
+        staleTime: 0, //  optional for alipay and wechat
+    });
+
+    const location=useLocation();
+    const paymentQuery=new URLSearchParams(location.search).get("payment");
+
+    const {mutate:markPaid}=useUpdateOrderToPaid()
+
+
+
+    useEffect(()=>{
+        if(!isLoading && paymentQuery === "success" && orderData && !orderData.isPaid ){
+            markPaid(
+                {
+                    orderId,
+                    paymentResult: {
+                        id: orderData.paymentResult?.id || "Alipay",
+                        status: "succeeded",
+                        update_time: new Date().toISOString(),
+                        email_address:
+                            orderData.user.email ||
+                            orderData.userInfo?.email ||
+                            "unknown",
+                    },
+                },
+                {
+                    onSuccess: () => {
+                    //    toast.success("Payment confirmed successfully!");
+                       setTimeout(() => refetch(), 1500);
+                    },
+                }
+            );
+        }
+    }, [paymentQuery, orderData, orderId, markPaid, refetch,isLoading])
 
     useEffect(()=>{
         if(isError){
@@ -88,11 +131,9 @@ const OrderPage = () => {
                           type={orderData.isDelivered ? "success" : "error"}
                       >
                           {orderData.isDelivered
-                              ? `Order is delivered at ${new Date(
+                              ? `Order is delivered at ${dateFormater(
                                     orderData.deliveredAt
-                                )
-                                    .toISOString()
-                                    .slice(0, 10)}`
+                                )}`
                               : "Order is not delivered yet."}
                       </Message>
                       <hr className="border-b-0 border-gray-400" />
@@ -104,9 +145,9 @@ const OrderPage = () => {
                       </p>
                       <Message type={orderData.isPaid ? "success" : "error"}>
                           {orderData.isPaid
-                              ? `Order is paid at ${new Date(orderData.paidAt)
-                                    .toISOString()
-                                    .slice(0, 10)}.`
+                              ? `Order is paid at ${dateFormater(
+                                    orderData.paidAt
+                                )}.`
                               : "Order is not paid yet."}
                       </Message>
                   </div>
@@ -213,6 +254,7 @@ const OrderPage = () => {
                           orderId={orderId}
                           totalPrice={totalPrice}
                           onSuccess={toggleModalOpen}
+                          paymentMethod={paymentMethod}
                       />
                   </motion.div>
               </motion.div>

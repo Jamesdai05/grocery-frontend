@@ -20,7 +20,7 @@ const CartPage = () => {
 
     const handleCheckout = () => {
         if(cartItems.length === 0) return;
-        console.log(userinfo)
+        // console.log(userinfo)
         if(userinfo){
             navigate('/shipping');
             return;

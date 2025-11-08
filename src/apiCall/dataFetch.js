@@ -71,6 +71,7 @@ export const createPayment=async(amount,orderId)=>{
 }
 
 export const updateOrderToPaid=async(orderId,paymentResult)=>{
+     if (!orderId) throw new Error("Order ID is missing");
     const response=await apiClient.put(`/orders/${orderId}/pay`,paymentResult);
     return response.data;
 }
@@ -147,6 +148,11 @@ export const getUserDetailsById=async(userId)=>{
 export const updateUserByAdmin=async(userId,userData)=>{
     const {data}=await apiClient.put(`/users/admin/edit/${userId}`,userData);
     return data;
+}
+
+export const getTop3Products=async()=>{
+    const {data}=await apiClient.get("products/top");
+    return data
 }
 
 

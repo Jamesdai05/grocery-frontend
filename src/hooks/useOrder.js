@@ -69,9 +69,10 @@ export const useUpdateOrderToPaid = () => {
         mutationFn: ({ orderId, paymentResult }) => updateOrderToPaid(orderId, paymentResult),
         onSuccess: (data, variables) => {
             // update the specific order cache.
-            queryClient.setQueryData(["orders",variables.orderId],data)
+            queryClient.setQueryData(["orders",variables.orderId],data.order)
             // Invalidate and refetch order details
-            queryClient.invalidateQueries({ queryKey: ["orders", variables.orderId] });
+            // queryClient.invalidateQueries({ queryKey: ["orders"] });
+            queryClient.invalidateQueries(["orders", variables.orderId]);
             toast.success("Order payment updated successfully!");
         },
         onError: (err) => {

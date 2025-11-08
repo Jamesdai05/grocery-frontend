@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
-import { Elements, useStripe } from "@stripe/react-stripe-js";
+import { useElements,Elements,useStripe,} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
 import { createPayment } from "../apiCall/dataFetch.js";
 import StripeCheckoutForm2 from "../components/StripeCheckOutForm2.jsx";
-// import { useLocation } from "react-router-dom";
+import { useUpdateOrderToPaid } from "../hooks/useOrder.js";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutA = ({ orderId, totalPrice }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+
+    // const stripe=useStripe();
+
+    // const elements = useElements();
+    const { mutate: markPaid } = useUpdateOrderToPaid();
 
     useEffect(() => {
         const initPayment = async () => {
@@ -46,12 +51,11 @@ const CheckoutA = ({ orderId, totalPrice }) => {
     };
 
     return (
-        <Elements
-            stripe={stripePromise}
-            options={ options }
-            key={clientSecret}
-        >
-            <StripeCheckoutForm2 clientSecret={clientSecret} orderId={orderId} />
+        <Elements stripe={stripePromise} options={options} key={clientSecret}>
+            <StripeCheckoutForm2
+                clientSecret={clientSecret}
+                orderId={orderId}
+            />
         </Elements>
     );
 };
