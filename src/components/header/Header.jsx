@@ -74,28 +74,28 @@ const Header = () => {
       <header className="shadow-md w-full h-20 px-2 header sticky top-0 bg-white z-50">
           <div className="flex items-center justify-between max-w-[1500px] mx-auto h-full">
               {/* Logo */}
-              <div className="logo w-24 flex items-center justify-center flex-grow-0 min-w-24">
-                  <Link to="/" className="flex items-center w-16">
+              <div className="logo flex items-center justify-center flex-grow-0 min-w-0">
+                  <Link to="/" className="flex items-center">
                       <img
                           src={logo}
                           alt="Grocery store logo"
-                          className="w-20"
+                          className="w-14 sm:w-16 md:w-20 lg:w-24 object-contain"
                       />
                   </Link>
               </div>
 
-              {/* Search Bar - Hidden on mobile */}
-              <div className="form hidden lg:flex flex-1 mx-auto">
+              {/* Search Bar - Hidden on small mobile, visible on md and up */}
+              {/* <div className="form hidden md:flex flex-1 mx-auto">
                   <input
                       type="text"
                       placeholder="Enter the product"
                       className="search"
                   />
                   <button className="btn-search">Search</button>
-              </div>
+              </div> */}
 
-              {/* Desktop Navigation - Hidden below 987px */}
-              <div className="hidden lg:flex justify-between items-center gap-4 md:gap-7">
+              {/* Desktop Navigation - Hidden on small screens (shown from md) */}
+              <div className="hidden md:flex justify-between items-center gap-4 md:gap-7">
                   <nav className="flex justify-around gap-x-16 font-bold text-slate-500 text-xl">
                       <li className="list-none">
                           <Link
@@ -198,8 +198,8 @@ const Header = () => {
                   </div>
               </div>
 
-              {/* Mobile Menu Button - Visible below 987px */}
-              <div className="lg:hidden flex items-center gap-4">
+              {/* Mobile Menu Button - Visible below md */}
+              <div className="md:hidden flex items-center gap-4">
                   {/* Cart Icon for Mobile */}
                   <Link to="/cart" className="relative text-2xl text-slate-700">
                       <FaShoppingCart />
@@ -224,7 +224,7 @@ const Header = () => {
           {/* Mobile Menu Overlay */}
           {isMobileMenuOpen && (
               <div
-                  className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                  className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
                   onClick={closeMobileMenu}
               />
           )}
@@ -232,7 +232,8 @@ const Header = () => {
           {/* Mobile Menu Sidebar */}
           <div
               ref={mobileMenuRef}
-              className={`fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+              onClick={(e) => e.stopPropagation()} // prevent overlay click when interacting with menu
+              className={`fixed top-0 right-0 h-full w-72 sm:w-64 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
                   isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
               }`}
           >

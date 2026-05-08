@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 
-import { deleteProductById,fetchProductById, updateProductById,uploadFile,createNewProduct} from "../apiCall/dataFetch.js";
+import { deleteProductById,fetchProductById, updateProductById,uploadFile,createNewProduct, getTop3Products} from "../apiCall/dataFetch.js";
 import { toast } from "react-toastify";
 // import { useDispatch } from "react-redux";
 
@@ -65,6 +65,18 @@ export const useUpdateProduct=(productId)=>{
         },
     })
 }
+
+
+export const useTop3Products = ()=>{
+    return useQuery({
+        queryKey:["topProducts"],
+        queryFn:getTop3Products,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+        refetchOnWindowFocus: false,
+        retry: 2, // Retry failed requests up to 2 times
+    })
+}
+
 
 export const useFileUpload=()=>{
     // const queryClient=useQueryClient();

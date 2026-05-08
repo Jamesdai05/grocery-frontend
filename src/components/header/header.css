@@ -2,8 +2,9 @@
   background-color: rgb(228, 238, 232);
 }
 
-img {
+.logo img {
   border-right: 3px solid whitesmoke;
+  display: block;
 }
 
 nav li{
@@ -11,10 +12,11 @@ nav li{
   list-style-type: none;
 }
 
-/* .dropdown {
+/* Scoped dropdown styles */
+.header .dropdown {
   line-height: 1.1;
   letter-spacing: 1.2;
-} */
+}
 
 .user p{
   font-size: 16px;
@@ -22,6 +24,13 @@ nav li{
   padding-right: 0.5em;
 }
 
-Link {
-  font-size:1rem;
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .header {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .header img {
+    max-height: 48px;
+  }
 }

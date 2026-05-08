@@ -5,7 +5,7 @@ import Message from "./Message.jsx";
 const Carousel = ({
     slides=[],
     autoSlide = true,
-    autoSlideInterval = 3000 }) => {
+    autoSlideInterval = 3000 },isLoading,isError) => {
         const [current, setCurrent] = useState(0);
 
         const intervalRef = useRef(null);
@@ -60,6 +60,8 @@ const Carousel = ({
             )
         }
 
+        if(isLoading) return <Loder type="info" />
+
         return (
             <div
                 onMouseEnter={handleMouseEnter}
@@ -71,11 +73,11 @@ const Carousel = ({
                     className="flex transition-transform ease-out duration-500 h-full w-full"
                     style={{ transform: `translateX(-${current * 100}%)` }}
                 >
-                    {slides.map((slide, idx) => (
+                    {slides.map(slide => (
                         <img
-                            key={idx}
-                            src={slide}
-                            alt={`slide-${idx}`}
+                            key={slide._id}
+                            src={slide.image}
+                            alt={`slide-${slide.name}`}
                             className="flex flex-shrink-0 object-contain w-full pt-4"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
